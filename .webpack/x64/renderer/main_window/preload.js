@@ -1,2 +1,0 @@
-(()=>{"use strict";var e={288(e){e.exports=require("electron")}},r={};function o(n){var t=r[n];if(void 0!==t)return t.exports;var i=r[n]={exports:{}};return e[n](i,i.exports,o),i.exports}(()=>{const e=o(288);e.contextBridge.exposeInMainWorld("knouxAPI",{invoke:(r,o)=>e.ipcRenderer.invoke(r,o),on:(r,o)=>{e.ipcRenderer.on(r,(e,...r)=>o(...r))},off:(r,o)=>{e.ipcRenderer.removeListener(r,o)}})})()})();
-//# sourceMappingURL=preload.js.map
