@@ -1,10 +1,25 @@
-﻿import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow } from 'electron';
+import fs from 'fs';
+import path from 'path';
 
 // Webpack provides these
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
 
 let mainWindow: BrowserWindow | null = null;
+
+function resolvePreload(preloadPath: string): string {
+    try {
+        if (fs.existsSync(preloadPath)) return preloadPath;
+        const alt1 = path.join(process.cwd(), '.webpack', 'x64', 'renderer', 'main_window', 'preload.js');
+        if (fs.existsSync(alt1)) return alt1;
+        const alt2 = path.join(process.cwd(), '.webpack', 'renderer', 'main_window', 'preload.js');
+        if (fs.existsSync(alt2)) return alt2;
+        return preloadPath;
+    } catch {
+        return preloadPath;
+    }
+}
 
 function createWindow(): void {
     mainWindow = new BrowserWindow({
@@ -13,7 +28,7 @@ function createWindow(): void {
         webPreferences: {
             nodeIntegration: false,
             contextIsolation: true,
-            preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
+            preload: resolvePreload(MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY),
         },
     });
 

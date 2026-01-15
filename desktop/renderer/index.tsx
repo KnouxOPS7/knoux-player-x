@@ -1,4 +1,5 @@
 ﻿import React, { useMemo, useState } from 'react';
+console.log('BOOT: renderer entry loaded');
 import { createRoot } from 'react-dom/client';
 
 type Theme = 'dark' | 'light';
