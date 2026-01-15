@@ -4,7 +4,10 @@ import webpack from 'webpack';
 import path from 'path';
 
 const config: ForgeConfig = {
-  packagerConfig: {},
+  packagerConfig: {
+    asar: true,
+    out: 'out',
+  },
   rebuildConfig: {},
   makers: [
     {
