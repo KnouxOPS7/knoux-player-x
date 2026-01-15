@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KNOUX Player X™</title>
-    <script>
-        // Basic polyfills for webpacked bundles in renderer
+<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>KNOUX Player X™</title><script>// Basic polyfills for webpacked bundles in renderer
         try {
             // eslint-disable-next-line no-var
             var __dirname = "";
@@ -14,10 +7,7 @@
             // minimal process.env shim if read at runtime
             window.process = window.process || {};
             window.process.env = window.process.env || {};
-        } catch (e) {}
-    </script>
-    <style>
-        * {
+        } catch (e) {}</script><style>* {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -38,15 +28,4 @@
             align-items: center;
             justify-content: center;
             color: white;
-        }
-    </style>
-</head>
-<body>
-    <div id="root">
-        <div style="text-align: center;">
-            <h1 style="font-size: 48px; margin-bottom: 20px;">⏳ Loading...</h1>
-            <p>If this message persists, check console (F12)</p>
-        </div>
-    </div>
-</body>
-</html>
+        }</style><script defer="defer" src="../main_window/index.js"></script></head><body><div id="root"><div style="text-align: center;"><h1 style="font-size: 48px; margin-bottom: 20px;">⏳ Loading...</h1><p>If this message persists, check console (F12)</p></div></div></body></html>
