@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Project: KNOUX Player X™
  * Author: knoux
  * Purpose: TypeScript Bridge for Native DSP Processor
@@ -16,7 +16,7 @@
  */
 
 import { ipcMain, ipcRenderer } from 'electron';
-import type { DSPConfig } from '../../../src/types/dsp.types';
+import type { DSPConfig } from '../../../../src/types/dsp.types';
 
 // Renderer-side bridge (used in preload when loaded)
 export const setupDSPRendererBridge = () => {
