@@ -1,4 +1,4 @@
-﻿import { contextBridge, ipcRenderer } from 'electron';
+import { contextBridge, ipcRenderer } from 'electron';
 
 contextBridge.exposeInMainWorld('knouxAPI', {
     invoke: (channel: string, data?: any) => ipcRenderer.invoke(channel, data),
@@ -7,5 +7,6 @@ contextBridge.exposeInMainWorld('knouxAPI', {
     },
     off: (channel: string, func: (...args: any[]) => void) => {
         ipcRenderer.removeListener(channel, func);
-    }
+    },
+    platform: process.platform
 });
