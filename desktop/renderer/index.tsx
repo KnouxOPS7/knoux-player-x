@@ -1,4 +1,4 @@
-﻿import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 console.log('BOOT: renderer entry loaded');
 import { createRoot } from 'react-dom/client';
 
@@ -200,7 +200,15 @@ const App: React.FC = () => {
             </div>
 
             <button
-              onClick={() => alert('✅ KNOUX core pipeline is alive. Hook your media engine next.')}
+              onClick={async () => {
+                try {
+                  const preset = await (window as any).knouxAPI.invoke('knux:dsp:preset', 'flat');
+                  alert(`✅ DSP Preset loaded:\nGain=${preset.gain}, Bass=${preset.bass}, Treble=${preset.treble}`);
+                } catch (err) {
+                  console.error('DSP preset invoke failed', err);
+                  alert('❌ DSP preset invoke failed. Check console.');
+                }
+              }}
               style={{
                 marginTop: 24,
                 alignSelf: 'flex-start',
