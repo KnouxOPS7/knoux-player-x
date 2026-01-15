@@ -1,4 +1,4 @@
-﻿import type { ForgeConfig } from '@electron-forge/shared-types';
+import type { ForgeConfig } from '@electron-forge/shared-types';
 import { WebpackPlugin } from '@electron-forge/plugin-webpack';
 import webpack from 'webpack';
 import path from 'path';
@@ -49,6 +49,9 @@ const config: ForgeConfig = {
               'process.env': JSON.stringify(process.env),
             }),
           ],
+        },
+        devServer: {
+          port: 9000,
         },
         entryPoints: [
           {
