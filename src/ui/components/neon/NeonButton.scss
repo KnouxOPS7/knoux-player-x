@@ -1,0 +1,136 @@
+.neon-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+  overflow: hidden;
+  background: transparent;
+  
+  // Glassmorphism base
+  background: rgba(26, 26, 46, 0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 12px;
+  border: 1px solid rgba(138, 43, 226, 0.3);
+  
+  // Neon glow effect
+  box-shadow: 
+    0 0 5px rgba(138, 43, 226, 0.3),
+    0 0 10px rgba(0, 255, 255, 0.3);
+  
+  &:hover:not(.neon-button--disabled):not(.neon-button--loading) {
+    transform: translateY(-2px);
+    box-shadow: 
+      0 0 10px rgba(138, 43, 226, 0.5),
+      0 0 20px rgba(0, 255, 255, 0.5);
+  }
+  
+  &:active:not(.neon-button--disabled):not(.neon-button--loading) {
+    transform: translateY(0);
+    box-shadow: 
+      0 0 5px rgba(138, 43, 226, 0.3),
+      0 0 10px rgba(0, 255, 255, 0.3);
+  }
+  
+  // Variants
+  &--primary {
+    color: #ffffff;
+    background: rgba(138, 43, 226, 0.2);
+    
+    &:hover:not(.neon-button--disabled):not(.neon-button--loading) {
+      background: rgba(138, 43, 226, 0.3);
+    }
+  }
+  
+  &--secondary {
+    color: #00ffff;
+    background: rgba(0, 255, 255, 0.1);
+    
+    &:hover:not(.neon-button--disabled):not(.neon-button--loading) {
+      background: rgba(0, 255, 255, 0.2);
+    }
+  }
+  
+  &--ghost {
+    color: #8A2BE2;
+    background: transparent;
+    border: 1px solid rgba(138, 43, 226, 0.5);
+    
+    &:hover:not(.neon-button--disabled):not(.neon-button--loading) {
+      background: rgba(138, 43, 226, 0.1);
+    }
+  }
+  
+  // Sizes
+  &--small {
+    padding: 6px 12px;
+    font-size: 12px;
+    height: 28px;
+  }
+  
+  &--medium {
+    padding: 8px 16px;
+    font-size: 14px;
+    height: 36px;
+  }
+  
+  &--large {
+    padding: 12px 24px;
+    font-size: 16px;
+    height: 44px;
+  }
+  
+  // States
+  &--disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important;
+    box-shadow: 
+      0 0 5px rgba(138, 43, 226, 0.1),
+      0 0 10px rgba(0, 255, 255, 0.1) !important;
+  }
+  
+  &--loading {
+    cursor: wait;
+  }
+  
+  &--full-width {
+    width: 100%;
+  }
+  
+  // Content
+  &__content {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  // Spinner
+  &__spinner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.neon-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid transparent;
+  border-top: 2px solid currentColor;
+  border-radius: 50%;
+  animation: neonSpin 1s linear infinite;
+}
+
+@keyframes neonSpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

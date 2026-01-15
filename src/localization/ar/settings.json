@@ -1,0 +1,35 @@
+﻿{
+  "general": {
+    "title": "إعدادات عامة",
+    "language": "اللغة",
+    "theme": "المظهر",
+    "startup": "سلوك بدء التشغيل"
+  },
+  "playback": {
+    "title": "التشغيل",
+    "autoplay": "تشغيل تلقائي للحلقة التالية",
+    "resume": "استئناف موضع التشغيل",
+    "speed": "سرعة التشغيل الافتراضية",
+    "hardwareAcceleration": "تسريع العتاد (Hardware Acceleration)"
+  },
+  "audio": {
+    "title": "الصوت والمعالجة",
+    "outputDevice": "جهاز الإخراج",
+    "channels": "تكوين السماعات",
+    "dialogueBoost": "وضوح الحوار (AI)",
+    "compressor": "ضغط النطاق الديناميكي"
+  },
+  "subtitles": {
+    "title": "الترجمة",
+    "font": "نوع الخط",
+    "size": "حجم الخط",
+    "color": "اللون الرئيسي",
+    "bg": "شفافية الخلفية",
+    "autoSearch": "بحث تلقائي عن الترجمة"
+  },
+  "buttons": {
+    "save": "حفظ التغييرات",
+    "reset": "إعادة تعيين",
+    "export": "تصدير الملف الشخصي"
+  }
+}

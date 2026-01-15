@@ -1,0 +1,420 @@
+﻿/**
+ * Project: KNOUX Player X™
+ * File: src/types/index.ts
+ * Author: knoux
+ * Purpose: Global TypeScript type definitions for the entire application
+ * Layer: Source -> Types
+ */
+
+// ========== CORE APPLICATION TYPES ==========
+export interface AppConfig {
+  theme: ThemeConfig;
+  language: string;
+  autoUpdate: boolean;
+  hardwareAcceleration: boolean;
+  enableAnalytics: boolean;
+  proxySettings?: ProxyConfig;
+}
+
+export interface ThemeConfig {
+  mode: 'light' | 'dark' | 'auto';
+  accentColor: string;
+  backgroundColor: string;
+  surfaceColor: string;
+  opacity: number;
+  borderRadius: number;
+  shadowStrength: number;
+}
+
+export interface ProxyConfig {
+  enabled: boolean;
+  host: string;
+  port: number;
+  username?: string;
+  password?: string;
+  protocol: 'http' | 'https' | 'socks4' | 'socks5';
+}
+
+// ========== MEDIA TYPES ==========
+export interface MediaFile {
+  id: string;
+  path: string;
+  title: string;
+  artist?: string;
+  album?: string;
+  duration: number;
+  fileType: MediaType;
+  fileSize: number;
+  bitrate?: number;
+  sampleRate?: number;
+  dimensions?: VideoDimensions;
+  thumbnail?: string;
+  dateAdded: number;
+  lastPlayed?: number;
+  playCount: number;
+  rating?: number;
+  tags?: string[];
+  customFields?: Record<string, any>;
+}
+
+export type MediaType = 'audio' | 'video' | 'playlist' | 'stream' | 'image';
+
+export interface VideoDimensions {
+  width: number;
+  height: number;
+  aspectRatio: string;
+}
+
+export interface Playlist {
+  id: string;
+  name: string;
+  description?: string;
+  items: string[]; // MediaFile IDs
+  createdAt: number;
+  updatedAt: number;
+  isSmartPlaylist?: boolean;
+  smartCriteria?: SmartPlaylistCriteria;
+  coverArt?: string;
+}
+
+export interface SmartPlaylistCriteria {
+  genre?: string;
+  artist?: string;
+  album?: string;
+  rating?: number;
+  playCount?: number;
+  dateAdded?: DateRange;
+  duration?: NumberRange;
+  fileType?: MediaType[];
+}
+
+export interface DateRange {
+  start?: number;
+  end?: number;
+}
+
+export interface NumberRange {
+  min?: number;
+  max?: number;
+}
+
+export interface MediaMetadata {
+  title?: string;
+  artist?: string;
+  album?: string;
+  year?: number;
+  genre?: string;
+  trackNumber?: number;
+  discNumber?: number;
+  coverArt?: string;
+  lyrics?: string;
+  composer?: string;
+  conductor?: string;
+  performer?: string;
+  copyright?: string;
+  publisher?: string;
+  encodedBy?: string;
+  compilation?: boolean;
+  bpm?: number;
+  customTags?: Record<string, string>;
+}
+
+// ========== PLAYER TYPES ==========
+export interface PlayerState {
+  isPlaying: boolean;
+  isPaused: boolean;
+  isStopped: boolean;
+  currentTime: number;
+  duration: number;
+  volume: number;
+  muted: boolean;
+  playbackRate: number;
+  repeatMode: RepeatMode;
+  shuffleMode: boolean;
+  currentMedia?: MediaFile;
+  playlistId?: string;
+  buffering: boolean;
+  bufferProgress: number;
+  eqSettings?: EqSettings;
+  audioTracks?: AudioTrack[];
+  subtitleTracks?: SubtitleTrack[];
+  videoTracks?: VideoTrack[];
+}
+
+export type RepeatMode = 'off' | 'one' | 'all';
+
+export interface EqSettings {
+  preset?: string;
+  bands: EqBand[];
+  enabled: boolean;
+}
+
+export interface EqBand {
+  frequency: number;
+  gain: number;
+  qFactor: number;
+}
+
+export interface AudioTrack {
+  id: string;
+  language: string;
+  name: string;
+  codec: string;
+  channels: number;
+  sampleRate: number;
+  bitrate: number;
+  isSelected: boolean;
+}
+
+export interface SubtitleTrack {
+  id: string;
+  language: string;
+  name: string;
+  format: string;
+  isSelected: boolean;
+  isForced: boolean;
+  isBurnedIn: boolean;
+}
+
+export interface VideoTrack {
+  id: string;
+  language: string;
+  name: string;
+  codec: string;
+  width: number;
+  height: number;
+  bitrate: number;
+  frameRate: number;
+  isSelected: boolean;
+}
+
+// ========== UI COMPONENT TYPES ==========
+export interface WindowState {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  isMaximized: boolean;
+  isMinimized: boolean;
+  isFullScreen: boolean;
+  alwaysOnTop: boolean;
+}
+
+export interface ViewportSize {
+  width: number;
+  height: number;
+  devicePixelRatio: number;
+}
+
+export interface DragDropEvent {
+  files: MediaFile[];
+  position: { x: number; y: number };
+  timestamp: number;
+}
+
+export interface KeyboardShortcut {
+  id: string;
+  name: string;
+  keyCombo: string;
+  action: string;
+  context: string;
+  isEnabled: boolean;
+}
+
+// ========== SERVICE TYPES ==========
+export interface LibraryScanResult {
+  filesAdded: number;
+  filesUpdated: number;
+  filesRemoved: number;
+  errors: string[];
+  duration: number;
+}
+
+export interface DownloadTask {
+  id: string;
+  url: string;
+  destination: string;
+  status: DownloadStatus;
+  progress: number;
+  fileSize?: number;
+  downloadedSize: number;
+  startTime: number;
+  endTime?: number;
+  error?: string;
+}
+
+export type DownloadStatus = 'queued' | 'downloading' | 'paused' | 'completed' | 'failed' | 'cancelled';
+
+export interface AnalyticsEvent {
+  id: string;
+  eventType: string;
+  timestamp: number;
+  userId?: string;
+  sessionDuration?: number;
+  mediaType?: MediaType;
+  fileId?: string;
+  customData?: Record<string, any>;
+}
+
+// ========== UTILITY TYPES ==========
+export interface FileOperationResult {
+  success: boolean;
+  message?: string;
+  data?: any;
+  errorCode?: string;
+}
+
+export interface SearchQuery {
+  text: string;
+  filters?: SearchFilters;
+  sort?: SortOptions;
+  limit?: number;
+  offset?: number;
+}
+
+export interface SearchFilters {
+  mediaTypes?: MediaType[];
+  genres?: string[];
+  artists?: string[];
+  albums?: string[];
+  dateRange?: DateRange;
+  rating?: NumberRange;
+  tags?: string[];
+}
+
+export interface SortOptions {
+  field: string;
+  direction: 'asc' | 'desc';
+}
+
+export interface ProgressCallback {
+  (progress: number, message?: string): void;
+}
+
+export interface ErrorCallback {
+  (error: Error): void;
+}
+
+export interface SuccessCallback<T> {
+  (result: T): void;
+}
+
+// ========== API RESPONSE TYPES ==========
+export interface ApiResponse<T> {
+  success: boolean;
+  data?: T;
+  error?: ApiError;
+  timestamp: number;
+}
+
+export interface ApiError {
+  code: string;
+  message: string;
+  details?: any;
+}
+
+export interface PaginatedResponse<T> {
+  items: T[];
+  totalCount: number;
+  currentPage: number;
+  totalPages: number;
+  hasNext: boolean;
+  hasPrevious: boolean;
+}
+
+// ========== PLUGIN SYSTEM TYPES ==========
+export interface PluginManifest {
+  id: string;
+  name: string;
+  description: string;
+  version: string;
+  author: string;
+  homepage?: string;
+  compatibleVersion: string;
+  tags?: string[];
+  icon?: string;
+  permissions?: string[];
+}
+
+export interface PluginConfig {
+  enabled: boolean;
+  settings: Record<string, any>;
+  installedAt: number;
+  lastUpdated: number;
+}
+
+export interface PluginEvent {
+  name: string;
+  data?: any;
+  timestamp: number;
+  sourcePluginId: string;
+}
+
+// ========== HARDWARE AND SYSTEM TYPES ==========
+export interface SystemInfo {
+  cpu: CpuInfo;
+  memory: MemoryInfo;
+  graphics: GraphicsInfo;
+  storage: StorageInfo[];
+  platform: PlatformInfo;
+}
+
+export interface CpuInfo {
+  model: string;
+  cores: number;
+  threads: number;
+  frequency: number;
+  architecture: string;
+  usage: number;
+}
+
+export interface MemoryInfo {
+  total: number;
+  free: number;
+  used: number;
+  usage: number;
+}
+
+export interface GraphicsInfo {
+  vendor: string;
+  model: string;
+  vram: number;
+  driverVersion: string;
+}
+
+export interface StorageInfo {
+  mountPoint: string;
+  totalSpace: number;
+  freeSpace: number;
+  type: string;
+}
+
+export interface PlatformInfo {
+  os: string;
+  version: string;
+  arch: string;
+  locale: string;
+}
+
+// ========== TYPE GUARDS ==========
+export const isMediaFile = (item: any): item is MediaFile => {
+  return item && typeof item === 'object' && 'id' in item && 'path' in item && 'title' in item;
+};
+
+export const isPlaylist = (item: any): item is Playlist => {
+  return item && typeof item === 'object' && 'id' in item && 'name' in item && 'items' in item;
+};
+
+export const isPlayerState = (state: any): state is PlayerState => {
+  return state && typeof state === 'object' && 'isPlaying' in state && 'currentTime' in state;
+};
+
+export default {
+  AppConfig,
+  ThemeConfig,
+  MediaFile,
+  MediaType,
+  Playlist,
+  PlayerState,
+  SystemInfo
+};

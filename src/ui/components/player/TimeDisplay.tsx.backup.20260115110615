@@ -1,0 +1,20 @@
+﻿// TimeDisplay Component
+// KNOUX Player X - Version 1.0.0
+
+import React from 'react';
+import { motion } from 'framer-motion';
+
+interface TimeDisplayProps {
+    // Add props here
+}
+
+const TimeDisplay: React.FC<TimeDisplayProps> = () => {
+    return (
+        <div className="TimeDisplay.toLowerCase()-container">
+            <h2>TimeDisplay</h2>
+            {/* Component content */}
+        </div>
+    );
+};
+
+export default TimeDisplay;

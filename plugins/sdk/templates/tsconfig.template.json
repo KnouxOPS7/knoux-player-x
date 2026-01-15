@@ -1,0 +1,15 @@
+﻿{
+"compilerOptions": {
+"target": "ESNext",
+"module": "CommonJS",
+"strict": true,
+"esModuleInterop": true,
+"outDir": "./dist",
+"baseUrl": ".",
+"paths": {
+"@knoux/plugin-sdk": ["../../plugin-sdk"]
+}
+},
+"include": ["src//*"],
+"exclude": ["node_modules", "/*.test.ts"]
+}

@@ -1,0 +1,271 @@
+﻿//==============================================================================
+// KNOUX Player X - Loading Spinner Styles
+//==============================================================================
+// Project: KNOUX Player X
+// File: C:\Users\Aisha\Downloads\knox-player-x\src\styles\components\shared\LoadingSpinner.scss
+// Role: Cinematic Intelligence Loading Spinner Styling
+// Layer: UI
+// Author: SADEK ELGAZAR (KNOUX)
+// Status: FINALIZED
+//==============================================================================
+
+//------------------------------------------------------------------------------
+// Loading Spinner Container
+//------------------------------------------------------------------------------
+
+.loading-spinner-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--knx-space-md);
+  padding: var(--knx-space-lg);
+  
+  // Glassmorphism effect
+  &.glassmorphism {
+    background: rgba(10, 10, 26, 0.8);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: var(--knx-radius-lg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  // Neon effects
+  &.neon-effects {
+    .loading-spinner {
+      &.neon-glow {
+        filter: drop-shadow(0 0 5px var(--theme-primary, #00ffff));
+      }
+    }
+  }
+}
+
+//------------------------------------------------------------------------------
+// Loading Spinner Core
+//------------------------------------------------------------------------------
+
+.loading-spinner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  // Size variants
+  &.size-small {
+    width: 24px;
+    height: 24px;
+  }
+  
+  &.size-medium {
+    width: 32px;
+    height: 32px;
+  }
+  
+  &.size-large {
+    width: 48px;
+    height: 48px;
+  }
+  
+  &.size-xlarge {
+    width: 64px;
+    height: 64px;
+  }
+}
+
+//------------------------------------------------------------------------------
+// Spinner Dots
+//------------------------------------------------------------------------------
+
+.spinner-dot {
+  position: absolute;
+  width: 20%;
+  height: 20%;
+  background: var(--theme-primary, #00ffff);
+  border-radius: 50%;
+  animation: spinner-pulse 1.2s infinite ease-in-out;
+  animation-delay: var(--dot-delay, 0s);
+  
+  // Position dots in a circle
+  @for  from 0 through 7 {
+    &:nth-child(#{ + 1}) {
+      transform: rotate(#{  * 45 }deg) translate(120%) rotate(#{  * -45 }deg);
+    }
+  }
+  
+  // Size adjustments
+  .size-small & {
+    width: 15%;
+    height: 15%;
+  }
+  
+  .size-large & {
+    width: 25%;
+    height: 25%;
+  }
+  
+  .size-xlarge & {
+    width: 30%;
+    height: 30%;
+  }
+}
+
+//------------------------------------------------------------------------------
+// Loading Message
+//------------------------------------------------------------------------------
+
+.loading-message {
+  color: var(--theme-text-primary, #ffffff);
+  font-weight: 400;
+  text-align: center;
+  max-width: 200px;
+  word-wrap: break-word;
+  
+  // Size variants
+  &.size-small {
+    font-size: var(--knx-font-size-xs);
+  }
+  
+  &.size-medium {
+    font-size: var(--knx-font-size-sm);
+  }
+  
+  &.size-large,
+  &.size-xlarge {
+    font-size: var(--knx-font-size-base);
+    max-width: 300px;
+  }
+}
+
+//------------------------------------------------------------------------------
+// Animations
+//------------------------------------------------------------------------------
+
+@keyframes spinner-pulse {
+  0%, 80%, 100% {
+    transform: scale(0);
+    opacity: 0.2;
+  }
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes spinner-rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+//------------------------------------------------------------------------------
+// Neon Glow Effect
+//------------------------------------------------------------------------------
+
+.loading-spinner.neon-glow {
+  .spinner-dot {
+    box-shadow: 0 0 5px var(--theme-primary, #00ffff);
+  }
+}
+
+//------------------------------------------------------------------------------
+// Responsive Design
+//------------------------------------------------------------------------------
+
+@media (max-width: 768px) {
+  .loading-spinner-container {
+    padding: var(--knx-space-md);
+  }
+  
+  .loading-spinner {
+    &.size-large {
+      width: 40px;
+      height: 40px;
+    }
+    
+    &.size-xlarge {
+      width: 48px;
+      height: 48px;
+    }
+  }
+  
+  .loading-message {
+    &.size-large,
+    &.size-xlarge {
+      font-size: var(--knx-font-size-sm);
+      max-width: 250px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .loading-spinner-container {
+    padding: var(--knx-space-sm);
+  }
+  
+  .loading-spinner {
+    &.size-medium {
+      width: 28px;
+      height: 28px;
+    }
+    
+    &.size-large {
+      width: 36px;
+      height: 36px;
+    }
+  }
+  
+  .loading-message {
+    &.size-medium {
+      font-size: var(--knx-font-size-xs);
+    }
+    
+    &.size-large,
+    &.size-xlarge {
+      font-size: var(--knx-font-size-sm);
+      max-width: 200px;
+    }
+  }
+}
+
+//------------------------------------------------------------------------------
+// High Contrast Mode
+//------------------------------------------------------------------------------
+
+@media (prefers-contrast: high) {
+  .spinner-dot {
+    border: 1px solid currentColor;
+  }
+  
+  .loading-message {
+    border: 1px solid transparent;
+  }
+}
+
+//------------------------------------------------------------------------------
+// Reduced Motion Support
+//------------------------------------------------------------------------------
+
+@media (prefers-reduced-motion: reduce) {
+  .spinner-dot {
+    animation: none;
+    transform: scale(1);
+    opacity: 1;
+  }
+  
+  .loading-spinner {
+    animation: spinner-rotate 2s linear infinite;
+  }
+}
+
+//------------------------------------------------------------------------------
+// Print Styles
+//------------------------------------------------------------------------------
+
+@media print {
+  .loading-spinner-container {
+    display: none;
+  }
+}

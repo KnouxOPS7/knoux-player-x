@@ -1,0 +1,158 @@
+﻿/**
+ * Project: KNOUX Player X™
+ * File: src/state/store/index.ts
+ * Author: knoux
+ * Purpose: Redux store configuration with persistence, reducers, and middleware
+ * Layer: Source -> State -> Store
+ */
+
+import { createStore, combineReducers, applyMiddleware, compose, Store } from 'redux';
+import { createMiddlewares } from '../middleware';
+import { 
+  playerReducer, 
+  settingsReducer, 
+  libraryReducer, 
+  playlistsReducer, 
+  uiReducer 
+} from '../slices';
+
+// ========== ROOT STATE INTERFACE ==========
+export interface RootState {
+  player: ReturnType<typeof playerReducer>;
+  settings: ReturnType<typeof settingsReducer>;
+  library: ReturnType<typeof libraryReducer>;
+  playlists: ReturnType<typeof playlistsReducer>;
+  ui: ReturnType<typeof uiReducer>;
+}
+
+// ========== REDUCER COMBINATION ==========
+const rootReducer = combineReducers({
+  player: playerReducer,
+  settings: settingsReducer,
+  library: libraryReducer,
+  playlists: playlistsReducer,
+  ui: uiReducer
+});
+
+// ========== STORE CONFIGURATION ==========
+const configureStore = (): Store<RootState> => {
+  // Compose enhancers
+  const composeEnhancers = 
+    (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+  // Create store with reducers and middleware
+  const store = createStore(
+    rootReducer,
+    composeEnhancers(
+      applyMiddleware(...createMiddlewares())
+    )
+  );
+
+  return store;
+};
+
+// ========== STATE PERSISTENCE ==========
+export interface PersistedState {
+  settings: RootState['settings'];
+  playlists: RootState['playlists'];
+  ui: RootState['ui'];
+}
+
+export const loadState = (): Partial<RootState> | undefined => {
+  try {
+    const serializedState = localStorage.getItem('knx_state');
+    if (serializedState === null) {
+      return undefined;
+    }
+    
+    const parsedState = JSON.parse(serializedState);
+    
+    // Validate loaded state structure
+    if (typeof parsedState !== 'object' || parsedState === null) {
+      return undefined;
+    }
+    
+    return parsedState as Partial<RootState>;
+  } catch (error) {
+    console.error('Failed to load state from localStorage:', error);
+    return undefined;
+  }
+};
+
+export const saveState = (state: RootState): void => {
+  try {
+    // Only persist specific parts of state
+    const persistedState: PersistedState = {
+      settings: state.settings,
+      playlists: state.playlists,
+      ui: state.ui
+    };
+    
+    const serializedState = JSON.stringify(persistedState);
+    localStorage.setItem('knx_state', serializedState);
+  } catch (error) {
+    console.error('Failed to save state to localStorage:', error);
+  }
+};
+
+// ========== STORE CREATION ==========
+// Load persisted state
+const persistedState = loadState();
+
+// Configure store with initial state
+export const store = configureStore();
+
+// Subscribe to store changes for persistence
+store.subscribe(() => {
+  const currentState = store.getState();
+  
+  // Throttle persistence updates
+  if (!saveState.throttled) {
+    saveState.throttled = true;
+    setTimeout(() => {
+      saveState(currentState);
+      saveState.throttled = false;
+    }, 1000);
+  }
+});
+
+// Add throttling flag to saveState function
+declare global {
+  interface Window {
+    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
+  }
+}
+
+// Extend saveState with throttling property
+namespace saveState {
+  export let throttled = false;
+}
+
+// ========== HOT MODULE REPLACEMENT ==========
+if (process.env.NODE_ENV === 'development' && (module as any).hot) {
+  (module as any).hot.accept('../slices', () => {
+    const newRootReducer = combineReducers({
+      player: require('../slices').playerReducer,
+      settings: require('../slices').settingsReducer,
+      library: require('../slices').libraryReducer,
+      playlists: require('../slices').playlistsReducer,
+      ui: require('../slices').uiReducer
+    });
+    
+    (store as any).replaceReducer(newRootReducer);
+  });
+}
+
+// ========== SELECTOR UTILITIES ==========
+export const selectPlayer = (state: RootState) => state.player;
+export const selectSettings = (state: RootState) => state.settings;
+export const selectLibrary = (state: RootState) => state.library;
+export const selectPlaylists = (state: RootState) => state.playlists;
+export const selectUI = (state: RootState) => state.ui;
+
+export const selectCurrentMedia = (state: RootState) => state.player.currentMedia;
+export const selectIsPlaying = (state: RootState) => state.player.isPlaying;
+export const selectVolume = (state: RootState) => state.player.volume;
+export const selectCurrentTime = (state: RootState) => state.player.currentTime;
+
+export default store;

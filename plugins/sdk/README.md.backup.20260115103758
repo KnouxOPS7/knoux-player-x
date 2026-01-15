@@ -1,0 +1,78 @@
+﻿# KNOUX Player X™ Developer SDK
+
+Complete development kit for creating powerful plugins for KNOUX Player X.
+
+## Features
+
+- TypeScript support with full type definitions
+- Plugin templates and scaffolding tools
+- Build system with webpack integration
+- Testing framework setup
+- Documentation generation
+- CLI tools for plugin development
+- Example projects and best practices
+
+## Installation
+
+```bash
+npm install @knoux/player-x-developer-sdk
+```
+
+## Quick Start
+
+Create a new plugin:
+```bash
+npx knoux-plugin-cli create my-awesome-plugin
+cd my-awesome-plugin
+npm install
+npm run dev
+```
+
+## Documentation
+
+- [Getting Started Guide](docs/GETTING_STARTED.md)
+- [API Reference](docs/API.md)
+- [Plugin Structure](docs/PLUGIN_STRUCTURE.md)
+- [Best Practices](docs/BEST_PRACTICES.md)
+
+## Requirements
+
+- Node.js 16+
+- npm 8+
+- TypeScript 4.9+
+
+## Building Plugins
+
+```bash
+# Development mode with hot reload
+npm run plugin:dev
+
+# Production build
+npm run plugin:build
+
+# Generate documentation
+npm run docs
+```
+
+## CLI Commands
+
+- `knoux-plugin-cli create <name>` - Create new plugin from template
+- `knoux-plugin-cli build` - Build plugin for distribution
+- `knoux-plugin-cli dev` - Start development server
+- `knoux-plugin-cli test` - Run plugin tests
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a new Pull Request
+
+## License
+
+UNLICENSED - Proprietary software owned by SADEK ELGAZAR (KNOUX)
+
+## Support
+
+For issues and questions, please contact the KNOUX development team.

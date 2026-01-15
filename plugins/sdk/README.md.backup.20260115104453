@@ -1,0 +1,47 @@
+﻿# KNOUX Player X™ - Developer SDK
+
+Welcome to the official development kit for KNOUX Player X™. This SDK provides the necessary tools, types, and documentation to extend the functionality of the player through plugins.
+
+## 🚀 Getting Started
+
+Prerequisites:
+- Node.js v18+
+- TypeScript v5+
+
+### Installation
+
+Plugins are located in the `plugins/` directory of your user data folder. To start a new plugin project, you can use our scaffolding script or manually configure `package.json`.
+
+```bash
+# Example CLI usage (Coming Soon)
+npm run knoux:create-plugin my-awesome-plugin
+📚 API Reference
+Plugins operate within a sandboxed Context provided by the host.
+KnouxPlugin (Base Class)
+All plugins must extend the KnouxPlugin abstract class exported from ../plugin-sdk.
+code
+TypeScript
+import { KnouxPlugin, IPluginContext } from "@knoux/plugin-sdk";
+
+export default class MyPlugin extends KnouxPlugin {
+    onLoad() {
+        this.context.toast("Plugin Loaded!");
+        this.context.logger.info("MyPlugin initialized.");
+    }
+
+    onUnload() {
+        // Cleanup resources
+    }
+}
+Permissions
+Define permissions in your manifest.json. Available scopes:
+filesystem:read - Allow reading files.
+dsp:audio - Access raw audio buffer manipulation.
+ui:overlay - Inject components into the UI.
+🛠 Project Structure
+A valid plugin consists of:
+manifest.json: Metadata and permissions.
+dist/index.js: Compiled source entry.
+icon.png (Optional): Branding.
+🤝 Contribution
+Review AUTHORS.md for contribution guidelines under the KNOUX7-Core™ standard.

@@ -1,0 +1,442 @@
+﻿/**
+ * Project: KNOUX Player X™
+ * File: src/utils/index.ts
+ * Author: knoux
+ * Purpose: Global utility functions for the entire application
+ * Layer: Source -> Utilities
+ */
+
+// ========== TIME UTILITIES ==========
+export class TimeUtils {
+  /**
+   * Converts seconds to formatted time string (HH:MM:SS)
+   */
+  static formatTime(seconds: number): string {
+    const h = Math.floor(seconds / 3600);
+    const m = Math.floor((seconds % 3600) / 60);
+    const s = Math.floor(seconds % 60);
+    
+    if (h > 0) {
+      return `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+    }
+    
+    return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+  }
+
+  /**
+   * Parses time string (HH:MM:SS or MM:SS) to seconds
+   */
+  static parseTime(timeString: string): number {
+    const parts = timeString.split(':').map(part => parseInt(part, 10));
+    
+    if (parts.some(isNaN)) {
+      return 0;
+    }
+    
+    if (parts.length === 3) {
+      // HH:MM:SS
+      return parts[0] * 3600 + parts[1] * 60 + parts[2];
+    } else if (parts.length === 2) {
+      // MM:SS
+      return parts[0] * 60 + parts[1];
+    } else if (parts.length === 1) {
+      // SS
+      return parts[0];
+    }
+    
+    return 0;
+  }
+
+  /**
+   * Formats milliseconds to human readable string
+   */
+  static formatDuration(ms: number): string {
+    const seconds = Math.floor(ms / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+
+    if (days > 0) {
+      return `${days}d ${hours % 24}h`;
+    } else if (hours > 0) {
+      return `${hours}h ${minutes % 60}m`;
+    } else if (minutes > 0) {
+      return `${minutes}m ${seconds % 60}s`;
+    } else {
+      return `${seconds}s`;
+    }
+  }
+}
+
+// ========== FILE UTILITIES ==========
+export class FileUtils {
+  /**
+   * Gets file extension from path
+   */
+  static getFileExtension(filePath: string): string {
+    return filePath.slice((filePath.lastIndexOf('.') - 1 >>> 0) + 2).toLowerCase();
+  }
+
+  /**
+   * Gets file name without extension
+   */
+  static getFileNameWithoutExtension(filePath: string): string {
+    const fileName = filePath.split(/[\\/]/).pop() || '';
+    return fileName.slice(0, fileName.lastIndexOf('.'));
+  }
+
+  /**
+   * Formats bytes to human readable string
+   */
+  static formatBytes(bytes: number, decimals: number = 2): string {
+    if (bytes === 0) return '0 Bytes';
+
+    const k = 1024;
+    const dm = decimals < 0 ? 0 : decimals;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+  }
+
+  /**
+   * Validates if file path is media file
+   */
+  static isMediaFile(filePath: string): boolean {
+    const ext = this.getFileExtension(filePath);
+    const mediaExtensions = [
+      'mp3', 'wav', 'aac', 'flac', 'm4a', 'wma', 'ogg', 'opus', 'aiff', 'alac',
+      'mp4', 'avi', 'mkv', 'mov', 'wmv', 'flv', 'webm', 'm4v', 'mpg', 'mpeg', 'ts', 'mts', 'm2ts'
+    ];
+    return mediaExtensions.includes(ext);
+  }
+
+  /**
+   * Sanitizes file name for safe storage
+   */
+  static sanitizeFileName(fileName: string): string {
+    return fileName.replace(/[<>:"/\\|?*\x00-\x1F]/g, '_');
+  }
+}
+
+// ========== MATH UTILITIES ==========
+export class MathUtils {
+  /**
+   * Clamps value between min and max
+   */
+  static clamp(value: number, min: number, max: number): number {
+    return Math.min(Math.max(value, min), max);
+  }
+
+  /**
+   * Linear interpolation
+   */
+  static lerp(start: number, end: number, t: number): number {
+    return start * (1 - t) + end * t;
+  }
+
+  /**
+   * Maps value from one range to another
+   */
+  static map(value: number, inMin: number, inMax: number, outMin: number, outMax: number): number {
+    return (value - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
+  }
+
+  /**
+   * Generates random integer between min and max (inclusive)
+   */
+  static randomInt(min: number, max: number): number {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  /**
+   * Rounds to specified decimal places
+   */
+  static roundToDecimal(value: number, decimals: number): number {
+    return Math.round(value * Math.pow(10, decimals)) / Math.pow(10, decimals);
+  }
+}
+
+// ========== MEDIA UTILITIES ==========
+export class MediaUtils {
+  /**
+   * Calculates aspect ratio string from dimensions
+   */
+  static calculateAspectRatio(width: number, height: number): string {
+    const gcd = (a: number, b: number): number => b === 0 ? a : gcd(b, a % b);
+    const divisor = gcd(width, height);
+    return `${width / divisor}:${height / divisor}`;
+  }
+
+  /**
+   * Estimates file size from duration, bitrate and channels
+   */
+  static estimateFileSize(duration: number, bitrate: number, channels: number): number {
+    // Bitrate in kbps, duration in seconds
+    return (bitrate * 1000 * duration) / 8;
+  }
+
+  /**
+   * Normalizes volume value (0-100) to linear scale (0-1)
+   */
+  static normalizeVolume(volume: number): number {
+    // Using logarithmic scale for better perceived volume control
+    return Math.pow(volume / 100, 2);
+  }
+
+  /**
+   * Converts linear volume to percentage
+   */
+  static volumeToPercentage(linearVolume: number): number {
+    return Math.sqrt(linearVolume) * 100;
+  }
+
+  /**
+   * Checks if media type is audio
+   */
+  static isAudio(mediaType: string): boolean {
+    const audioTypes = ['audio', 'mp3', 'wav', 'aac', 'flac', 'm4a', 'wma', 'ogg', 'opus'];
+    return audioTypes.some(type => mediaType.toLowerCase().includes(type));
+  }
+
+  /**
+   * Checks if media type is video
+   */
+  static isVideo(mediaType: string): boolean {
+    const videoTypes = ['video', 'mp4', 'avi', 'mkv', 'mov', 'wmv', 'flv', 'webm'];
+    return videoTypes.some(type => mediaType.toLowerCase().includes(type));
+  }
+}
+
+// ========== ARRAY UTILITIES ==========
+export class ArrayUtils {
+  /**
+   * Shuffles array in place
+   */
+  static shuffle<T>(array: T[]): T[] {
+    const newArray = [...array];
+    for (let i = newArray.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+    }
+    return newArray;
+  }
+
+  /**
+   * Groups array by key function
+   */
+  static groupBy<T, K extends string | number>(array: T[], keyFn: (item: T) => K): Record<K, T[]> {
+    return array.reduce((groups, item) => {
+      const key = keyFn(item);
+      if (!groups[key]) {
+        groups[key] = [];
+      }
+      groups[key].push(item);
+      return groups;
+    }, {} as Record<K, T[]>);
+  }
+
+  /**
+   * Removes duplicates from array
+   */
+  static unique<T>(array: T[]): T[] {
+    return [...new Set(array)];
+  }
+
+  /**
+   * Chunks array into smaller arrays
+   */
+  static chunk<T>(array: T[], size: number): T[][] {
+    const chunks = [];
+    for (let i = 0; i < array.length; i += size) {
+      chunks.push(array.slice(i, i + size));
+    }
+    return chunks;
+  }
+}
+
+// ========== STRING UTILITIES ==========
+export class StringUtils {
+  /**
+   * Converts string to slug
+   */
+  static slugify(str: string): string {
+    return str
+      .toLowerCase()
+      .replace(/[^\w\s-]/g, '')
+      .trim()
+      .replace(/[\s_-]+/g, '-')
+      .replace(/^-+|-+$/g, '');
+  }
+
+  /**
+   * Capitalizes first letter of each word
+   */
+  static capitalize(str: string): string {
+    return str.replace(/\b\w/g, char => char.toUpperCase());
+  }
+
+  /**
+   * Truncates string with suffix
+   */
+  static truncate(str: string, length: number, suffix: string = '...'): string {
+    if (str.length <= length) {
+      return str;
+    }
+    
+    return str.substring(0, length - suffix.length) + suffix;
+  }
+
+  /**
+   * Generates random string
+   */
+  static randomString(length: number = 16): string {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+    for (let i = 0; i < length; i++) {
+      result += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return result;
+  }
+}
+
+// ========== OBJECT UTILITIES ==========
+export class ObjectUtils {
+  /**
+   * Deep clones object
+   */
+  static deepClone<T>(obj: T): T {
+    if (obj === null || typeof obj !== 'object') {
+      return obj;
+    }
+    
+    if (obj instanceof Date) {
+      return new Date(obj.getTime()) as any;
+    }
+    
+    if (obj instanceof Array) {
+      return obj.map(item => this.deepClone(item)) as any;
+    }
+    
+    if (typeof obj === 'object') {
+      const clonedObj: any = {};
+      for (const key in obj) {
+        if (obj.hasOwnProperty(key)) {
+          clonedObj[key] = this.deepClone(obj[key]);
+        }
+      }
+      return clonedObj;
+    }
+    
+    return obj;
+  }
+
+  /**
+   * Merges two objects deeply
+   */
+  static deepMerge<T extends Record<string, any>>(target: T, source: Partial<T>): T {
+    const output = { ...target };
+    
+    if (this.isObject(target) && this.isObject(source)) {
+      Object.keys(source).forEach(key => {
+        if (this.isObject(source[key])) {
+          if (!(key in target)) {
+            Object.assign(output, { [key]: source[key] });
+          } else {
+            output[key] = this.deepMerge(target[key], source[key]);
+          }
+        } else {
+          Object.assign(output, { [key]: source[key] });
+        }
+      });
+    }
+    
+    return output;
+  }
+
+  /**
+   * Checks if value is object
+   */
+  static isObject(item: any): boolean {
+    return (item && typeof item === 'object' && !Array.isArray(item));
+  }
+
+  /**
+   * Gets nested property value
+   */
+  static getNestedProperty(obj: any, path: string, defaultValue?: any): any {
+    const keys = path.split('.');
+    let current = obj;
+    
+    for (const key of keys) {
+      if (current && typeof current === 'object' && key in current) {
+        current = current[key];
+      } else {
+        return defaultValue;
+      }
+    }
+    
+    return current;
+  }
+}
+
+// ========== PROMISE UTILITIES ==========
+export class PromiseUtils {
+  /**
+   * Delays execution
+   */
+  static delay(ms: number): Promise<void> {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  /**
+   * Executes async function with timeout
+   */
+  static withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
+    const timeout = new Promise<never>((_, reject) => {
+      setTimeout(() => reject(new Error('Timeout')), ms);
+    });
+    
+    return Promise.race([promise, timeout]);
+  }
+
+  /**
+   * Retries async function with exponential backoff
+   */
+  static async retry<T>(
+    fn: () => Promise<T>,
+    maxAttempts: number = 3,
+    baseDelay: number = 1000
+  ): Promise<T> {
+    let lastError: Error;
+    
+    for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+      try {
+        return await fn();
+      } catch (error) {
+        lastError = error as Error;
+        
+        if (attempt === maxAttempts) {
+          throw lastError;
+        }
+        
+        const delay = baseDelay * Math.pow(2, attempt - 1);
+        await this.delay(delay);
+      }
+    }
+    
+    throw lastError!;
+  }
+}
+
+export default {
+  TimeUtils,
+  FileUtils,
+  MathUtils,
+  MediaUtils,
+  ArrayUtils,
+  StringUtils,
+  ObjectUtils,
+  PromiseUtils
+};

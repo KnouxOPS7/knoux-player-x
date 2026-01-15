@@ -1,0 +1,59 @@
+{
+  "name": "@knoux/player-x-developer-sdk",
+  "version": "1.0.0",
+  "description": "Developer SDK for creating plugins for KNOUX Player X",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc -w",
+    "test": "jest",
+    "lint": "eslint src/**/*.ts",
+    "docs": "typedoc --out docs/api src/",
+    "plugin:create": "node tools/knoux-plugin-cli.js create",
+    "plugin:build": "node tools/knoux-plugin-cli.js build",
+    "plugin:dev": "node tools/knoux-plugin-cli.js dev"
+  },
+  "keywords": [
+    "knoux",
+    "player-x",
+    "media-player",
+    "plugin",
+    "sdk",
+    "development"
+  ],
+  "author": "SADEK ELGAZAR (KNOUX)",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/knuux7-ctrl/KNOX-Player-X-.git"
+  },
+  "bugs": {
+    "url": "https://github.com/knuux7-ctrl/KNOX-Player-X-/issues"
+  },
+  "homepage": "https://github.com/knuux7-ctrl/KNOX-Player-X-#readme",
+  "devDependencies": {
+    "typescript": "^4.9.5",
+    "webpack": "^5.76.0",
+    "webpack-cli": "^5.0.1",
+    "ts-loader": "^9.4.2",
+    "eslint": "^8.35.0",
+    "jest": "^29.4.3",
+    "typedoc": "^0.23.26",
+    "@types/node": "^18.14.6"
+  },
+  "dependencies": {
+    "@knoux/player-x-plugin-sdk": "^1.0.0"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "files": [
+    "dist/",
+    "templates/",
+    "tools/",
+    "docs/",
+    "README.md",
+    "LICENSE"
+  ]
+}

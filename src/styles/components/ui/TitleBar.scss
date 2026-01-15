@@ -1,0 +1,331 @@
+﻿//==============================================================================
+// KNOUX Player X - Title Bar Styles
+//==============================================================================
+// Project: KNOUX Player X
+// File: C:\Users\Aisha\Downloads\knox-player-x\src\styles\components\ui\TitleBar.scss
+// Role: Cinematic Intelligence Title Bar Styling
+// Layer: UI
+// Author: SADEK ELGAZAR (KNOUX)
+// Status: FINALIZED
+//==============================================================================
+
+//------------------------------------------------------------------------------
+// Title Bar Container
+//------------------------------------------------------------------------------
+
+.title-bar {
+  height: 32px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 var(--knx-space-sm);
+  background: rgba(10, 10, 26, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: default;
+  z-index: var(--knx-z-sticky);
+  transition: all var(--knx-transition-fast);
+  
+  // Focus states
+  &.window-focused {
+    background: rgba(10, 10, 26, 0.98);
+    border-bottom-color: rgba(0, 255, 255, 0.3);
+  }
+  
+  &.window-blurred {
+    background: rgba(10, 10, 26, 0.9);
+    opacity: 0.9;
+  }
+  
+  // Hover effect
+  &.is-hovered {
+    background: rgba(15, 15, 35, 0.98);
+  }
+  
+  // Drag state
+  &.is-dragging {
+    cursor: grabbing;
+  }
+}
+
+//------------------------------------------------------------------------------
+// Left Section
+//------------------------------------------------------------------------------
+
+.title-bar-left {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--knx-space-md);
+  height: 100%;
+}
+
+//------------------------------------------------------------------------------
+// Sidebar Toggle Button
+//------------------------------------------------------------------------------
+
+.sidebar-toggle-btn {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  border-radius: var(--knx-radius-sm);
+  cursor: pointer;
+  transition: all var(--knx-transition-fast);
+  color: var(--theme-text-primary, #ffffff);
+  
+  &:hover {
+    background: rgba(0, 255, 255, 0.1);
+    transform: scale(1.1);
+  }
+  
+  &:active {
+    background: rgba(0, 255, 255, 0.2);
+    transform: scale(0.95);
+  }
+  
+  .sidebar-icon {
+    width: 16px;
+    height: 16px;
+    transition: all var(--knx-transition-fast);
+  }
+}
+
+//------------------------------------------------------------------------------
+// Application Branding
+//------------------------------------------------------------------------------
+
+.app-branding {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--knx-space-sm);
+  height: 100%;
+}
+
+.app-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.app-title {
+  font-size: var(--knx-font-size-sm);
+  font-weight: 600;
+  color: var(--theme-text-primary, #ffffff);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+  
+  // Neon text effect
+  &.neon-text {
+    text-shadow: 0 0 5px var(--theme-primary, #00ffff),
+                 0 0 10px var(--theme-primary, #00ffff);
+  }
+}
+
+//------------------------------------------------------------------------------
+// Window Controls
+//------------------------------------------------------------------------------
+
+.title-bar-controls {
+  display: flex;
+  flex-direction: row;
+  gap: var(--knx-space-xs);
+  height: 100%;
+  
+  .window-control {
+    width: 32px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    border-radius: var(--knx-radius-xs);
+    cursor: pointer;
+    transition: all var(--knx-transition-fast);
+    color: var(--theme-text-primary, #ffffff);
+    
+    // Control-specific styling
+    &.minimize:hover {
+      background: rgba(255, 255, 0, 0.2);
+    }
+    
+    &.maximize:hover {
+      background: rgba(0, 255, 0, 0.2);
+    }
+    
+    &.close:hover {
+      background: rgba(255, 0, 0, 0.2);
+      color: #ffffff;
+    }
+    
+    &:active {
+      transform: scale(0.9);
+    }
+    
+    .control-icon {
+      width: 12px;
+      height: 12px;
+      transition: all var(--knx-transition-fast);
+    }
+  }
+}
+
+//------------------------------------------------------------------------------
+// Responsive Design
+//------------------------------------------------------------------------------
+
+@media (max-width: 768px) {
+  .title-bar {
+    height: 40px;
+    padding: 0 var(--knx-space-md);
+  }
+  
+  .app-title {
+    font-size: var(--knx-font-size-base);
+    max-width: 150px;
+  }
+  
+  .title-bar-controls {
+    .window-control {
+      width: 40px;
+      height: 32px;
+      
+      .control-icon {
+        width: 16px;
+        height: 16px;
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .title-bar {
+    height: 36px;
+    padding: 0 var(--knx-space-sm);
+  }
+  
+  .app-title {
+    font-size: var(--knx-font-size-sm);
+    max-width: 120px;
+  }
+  
+  .sidebar-toggle-btn {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .title-bar-controls {
+    .window-control {
+      width: 36px;
+      height: 28px;
+    }
+  }
+}
+
+//------------------------------------------------------------------------------
+// High DPI Support
+//------------------------------------------------------------------------------
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .title-bar {
+    border-bottom-width: 0.5px;
+  }
+  
+  .control-icon {
+    // Ensure crisp rendering on high DPI displays
+    shape-rendering: geometricPrecision;
+    image-rendering: -webkit-optimize-contrast;
+  }
+}
+
+//------------------------------------------------------------------------------
+// Reduced Motion Support
+//------------------------------------------------------------------------------
+
+@media (prefers-reduced-motion: reduce) {
+  .title-bar,
+  .window-control,
+  .sidebar-toggle-btn {
+    transition: none;
+  }
+  
+  .sidebar-toggle-btn:hover,
+  .window-control:hover {
+    transform: none;
+  }
+}
+
+//------------------------------------------------------------------------------
+// Print Styles
+//------------------------------------------------------------------------------
+
+@media print {
+  .title-bar {
+    display: none;
+  }
+}
+
+//------------------------------------------------------------------------------
+// Accessibility Enhancements
+//------------------------------------------------------------------------------
+
+.title-bar {
+  // Ensure sufficient contrast for accessibility
+  &:focus-within {
+    outline: 2px solid var(--theme-primary, #00ffff);
+    outline-offset: -2px;
+  }
+}
+
+.window-control,
+.sidebar-toggle-btn {
+  // Keyboard navigation support
+  &:focus {
+    outline: 2px solid var(--theme-primary, #00ffff);
+    outline-offset: 2px;
+  }
+  
+  // High contrast mode support
+  @media (prefers-contrast: high) {
+    border: 1px solid currentColor;
+  }
+}
+
+//------------------------------------------------------------------------------
+// Animation Keyframes
+//------------------------------------------------------------------------------
+
+@keyframes titleBarGlow {
+  0% {
+    box-shadow: 0 0 5px rgba(0, 255, 255, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+  }
+  100% {
+    box-shadow: 0 0 5px rgba(0, 255, 255, 0.2);
+  }
+}
+
+.title-bar.window-focused.is-hovered {
+  animation: titleBarGlow 2s ease-in-out infinite;
+}

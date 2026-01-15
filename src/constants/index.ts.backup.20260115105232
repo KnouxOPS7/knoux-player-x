@@ -1,0 +1,256 @@
+﻿/**
+ * Project: KNOUX Player X™
+ * File: src/constants/index.ts
+ * Author: knoux
+ * Purpose: Centralized application constants for consistent configuration across all modules
+ * Layer: Source -> Constants
+ */
+
+// ========== APPLICATION METADATA ==========
+export const APP = {
+  NAME: 'KNOUX Player X',
+  VERSION: '1.0.0',
+  DESCRIPTION: 'Premium Media Player with Glassmorphism Interface',
+  AUTHOR: 'SADEK ELGAZAR (KNOUX)',
+  HOMEPAGE: 'https://github.com/knuux7-ctrl/KNOX-Player-X-',
+  REPOSITORY: 'https://github.com/knuux7-ctrl/KNOX-Player-X-.git',
+  BUG_REPORT_URL: 'https://github.com/knuux7-ctrl/KNOX-Player-X-/issues',
+  
+  THEME: {
+    PRIMARY_COLOR: '#8A2BE2',
+    SECONDARY_COLOR: '#00FFFF',
+    ACCENT_COLOR: '#FF00FF',
+    BACKGROUND_COLOR: '#0F0F1A',
+    SURFACE_COLOR: '#1A1A2E',
+    TEXT_PRIMARY: '#FFFFFF',
+    TEXT_SECONDARY: '#CCCCCC',
+    TEXT_DISABLED: '#666699',
+    BORDER_RADIUS: 12,
+    BORDER_WIDTH: 1,
+    SHADOW_STRENGTH: 0.3,
+    GLASS_OPACITY: 0.15
+  },
+  
+  ANIMATION: {
+    DURATION_FAST: 150,
+    DURATION_NORMAL: 300,
+    DURATION_SLOW: 500,
+    EASING_STANDARD: 'cubic-bezier(0.4, 0, 0.2, 1)',
+    EASING_ACCELERATE: 'cubic-bezier(0.4, 0, 1, 1)',
+    EASING_DECELERATE: 'cubic-bezier(0, 0, 0.2, 1)'
+  }
+} as const;
+
+// ========== MEDIA CONSTANTS ==========
+export const MEDIA = {
+  SUPPORTED_AUDIO_FORMATS: [
+    '.mp3', '.wav', '.aac', '.flac', '.m4a', '.wma', '.ogg', '.opus', '.aiff', '.alac'
+  ] as const,
+  
+  SUPPORTED_VIDEO_FORMATS: [
+    '.mp4', '.avi', '.mkv', '.mov', '.wmv', '.flv', '.webm', '.m4v', '.mpg', '.mpeg', '.ts', '.mts', '.m2ts'
+  ] as const,
+  
+  SUPPORTED_PLAYLIST_FORMATS: [
+    '.m3u', '.m3u8', '.pls', '.xspf'
+  ] as const,
+  
+  SUPPORTED_SUBTITLE_FORMATS: [
+    '.srt', '.ass', '.ssa', '.sub', '.idx', '.smi', '.txt'
+  ] as const,
+  
+  ALL_SUPPORTED_FORMATS: [
+    '.mp3', '.wav', '.aac', '.flac', '.m4a', '.wma', '.ogg', '.opus', '.aiff', '.alac',
+    '.mp4', '.avi', '.mkv', '.mov', '.wmv', '.flv', '.webm', '.m4v', '.mpg', '.mpeg', '.ts', '.mts', '.m2ts',
+    '.m3u', '.m3u8', '.pls', '.xspf',
+    '.srt', '.ass', '.ssa', '.sub', '.idx', '.smi', '.txt'
+  ] as const,
+  
+  BUFFER: {
+    MIN_SIZE: 1024 * 1024,
+    DEFAULT_SIZE: 8 * 1024 * 1024,
+    MAX_SIZE: 64 * 1024 * 1024,
+    PREFETCH_PERCENTAGE: 0.1
+  },
+  
+  AUDIO: {
+    SAMPLE_RATE: 48000,
+    CHANNELS: 2,
+    BIT_DEPTH: 16,
+    MAX_VOLUME: 2.0,
+    DEFAULT_VOLUME: 1.0,
+    FADE_DURATION: 200
+  },
+  
+  VIDEO: {
+    MAX_FPS: 120,
+    DEFAULT_FPS: 60,
+    ASPECT_RATIO_TOLERANCE: 0.01,
+    SCALING_QUALITY: 'high',
+    DECODER_THREADS: 4
+  }
+} as const;
+
+// ========== STORAGE CONSTANTS ==========
+export const STORAGE = {
+  KEYS: {
+    SETTINGS: 'knx_settings',
+    PLAYLIST_HISTORY: 'knx_playlist_history',
+    MEDIA_LIBRARY: 'knx_media_library',
+    USER_PREFERENCES: 'knx_user_preferences',
+    CACHE_METADATA: 'knx_cache_metadata',
+    RECENT_FILES: 'knx_recent_files',
+    BOOKMARKS: 'knx_bookmarks',
+    EQUALIZER_PRESETS: 'knx_eq_presets',
+    WINDOW_STATE: 'knx_window_state'
+  } as const,
+  
+  CACHE: {
+    MAX_METADATA_ENTRIES: 1000,
+    MAX_THUMBNAIL_CACHE: 500,
+    EXPIRY_TIME: 7 * 24 * 60 * 60 * 1000,
+    CLEANUP_INTERVAL: 60 * 60 * 1000
+  },
+  
+  DATABASE: {
+    NAME: 'KNOUXPlayerX',
+    VERSION: 1,
+    STORE_NAMES: {
+      MEDIA_FILES: 'mediaFiles',
+      PLAYLISTS: 'playlists',
+      SETTINGS: 'settings',
+      METADATA: 'metadata'
+    } as const
+  }
+} as const;
+
+// ========== NETWORK CONSTANTS ==========
+export const NETWORK = {
+  ENDPOINTS: {
+    METADATA_PROVIDER: 'https://api.knoux.com/metadata',
+    COVER_ART_PROVIDER: 'https://art.knoux.com/covers',
+    LYRICS_PROVIDER: 'https://lyrics.knoux.com/search',
+    UPDATES_PROVIDER: 'https://updates.knoux.com/check'
+  } as const,
+  
+  TIMEOUT: {
+    API_REQUEST: 10000,
+    MEDIA_INFO: 30000,
+    STREAM_BUFFER: 5000,
+    FILE_TRANSFER: 300000
+  },
+  
+  RETRY: {
+    MAX_ATTEMPTS: 3,
+    BACKOFF_BASE: 1000,
+    BACKOFF_MULTIPLIER: 2
+  }
+} as const;
+
+// ========== UI CONSTANTS ==========
+export const UI = {
+  DIMENSIONS: {
+    MIN_WINDOW_WIDTH: 800,
+    MIN_WINDOW_HEIGHT: 600,
+    DEFAULT_WINDOW_WIDTH: 1280,
+    DEFAULT_WINDOW_HEIGHT: 720,
+    PLAYER_CONTROLS_HEIGHT: 80,
+    SIDEBAR_WIDTH: 250,
+    TOOLBAR_HEIGHT: 50
+  },
+  
+  BREAKPOINTS: {
+    MOBILE: 480,
+    TABLET: 768,
+    DESKTOP: 1024,
+    LARGE_DESKTOP: 1440
+  } as const,
+  
+  GRID: {
+    COLUMN_COUNT: 12,
+    GUTTER_WIDTH: 16,
+    MARGIN: 24
+  },
+  
+  TOUCH: {
+    TAP_THRESHOLD: 10,
+    LONG_PRESS_DURATION: 500,
+    SWIPE_THRESHOLD: 50,
+    SWIPE_VELOCITY: 0.3
+  }
+} as const;
+
+// ========== PERFORMANCE CONSTANTS ==========
+export const PERFORMANCE = {
+  RENDER: {
+    FRAME_BUDGET: 16.67,
+    BATCH_SIZE: 50,
+    DEBOUNCE_DELAY: 300,
+    THROTTLE_INTERVAL: 16
+  },
+  
+  MEMORY: {
+    GC_INTERVAL: 30000,
+    WARNING_THRESHOLD: 0.8,
+    CRITICAL_THRESHOLD: 0.95
+  },
+  
+  WORKERS: {
+    MAX_CONCURRENT: 4,
+    QUEUE_SIZE: 100
+  }
+} as const;
+
+// ========== SECURITY CONSTANTS ==========
+export const SECURITY = {
+  ENCRYPTION: {
+    ALGORITHM: 'AES-256-GCM',
+    KEY_LENGTH: 32,
+    IV_LENGTH: 12,
+    TAG_LENGTH: 16
+  },
+  
+  ACCESS: {
+    PERMISSION_TIMEOUT: 300000,
+    MAX_FAILED_ATTEMPTS: 5,
+    LOCKOUT_DURATION: 900000
+  }
+} as const;
+
+// ========== DEVELOPMENT CONSTANTS ==========
+export const DEVELOPMENT = {
+  DEBUG: {
+    ENABLED: process.env.NODE_ENV === 'development',
+    LOG_LEVEL: 'debug',
+    PROFILING_ENABLED: false,
+    MOCK_DATA_ENABLED: false
+  },
+  
+  FEATURES: {
+    NEW_UI: true,
+    EXPERIMENTAL_DECODER: false,
+    HARDWARE_ACCELERATION: true,
+    ADVANCED_EQ: true
+  }
+} as const;
+
+export type ConstantObject = { readonly [key: string]: any };
+
+export type DeepReadonly<T> = {
+  readonly [P in keyof T]: T[P] extends (infer U)[]
+    ? ReadonlyArray<DeepReadonly<U>>
+    : T[P] extends object
+    ? DeepReadonly<T[P]>
+    : T[P];
+};
+
+export default {
+  APP,
+  MEDIA,
+  STORAGE,
+  NETWORK,
+  UI,
+  PERFORMANCE,
+  SECURITY,
+  DEVELOPMENT
+} as const;

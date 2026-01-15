@@ -1,0 +1,407 @@
+﻿//==============================================================================
+// KNOUX Player X™ - Status Bar Styles
+//==============================================================================
+// Project: KNOUX Player X™
+// File: C:\Users\Aisha\Downloads\knox-player-x™\src\styles\components\ui\StatusBar.scss
+// Role: Cinematic Intelligence Status Bar Styling
+// Layer: UI
+// Author: SADEK ELGAZAR (KNOUX)
+// Status: FINALIZED
+//==============================================================================
+
+//------------------------------------------------------------------------------
+// Status Bar Container
+//------------------------------------------------------------------------------
+
+.status-bar {
+  height: 28px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 var(--knx-space-sm);
+  background: rgba(10, 10, 26, 0.9);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(0, 255, 255, 0.2);
+  font-size: var(--knx-font-size-xs);
+  color: var(--theme-text-secondary, #cccccc);
+  user-select: none;
+  -webkit-user-select: none;
+  z-index: var(--knx-z-sticky);
+  
+  // Glassmorphism effect
+  &.glassmorphism {
+    background: rgba(10, 10, 26, 0.85);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+  }
+  
+  // Neon effects
+  &.neon-effects {
+    border-top-color: rgba(0, 255, 255, 0.3);
+    box-shadow: inset 0 5px 15px rgba(0, 255, 255, 0.1);
+  }
+}
+
+//------------------------------------------------------------------------------
+// Status Sections
+//------------------------------------------------------------------------------
+
+.status-section {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--knx-space-sm);
+  
+  &.left {
+    justify-content: flex-start;
+  }
+  
+  &.center {
+    justify-content: center;
+    flex: 1;
+  }
+  
+  &.right {
+    justify-content: flex-end;
+  }
+}
+
+//------------------------------------------------------------------------------
+// Media Status
+//------------------------------------------------------------------------------
+
+.media-status {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--knx-space-xs);
+  
+  .volume-icon {
+    width: 12px;
+    height: 12px;
+    color: var(--theme-text-secondary, #cccccc);
+  }
+  
+  .volume-level {
+    font-weight: 500;
+    color: var(--theme-text-primary, #ffffff);
+  }
+}
+
+//------------------------------------------------------------------------------
+// Time Display
+//------------------------------------------------------------------------------
+
+.time-display {
+  font-family: 'Courier New', monospace;
+  font-size: var(--knx-font-size-xs);
+  color: var(--theme-text-primary, #ffffff);
+  padding: 0 var(--knx-space-xs);
+  border-radius: var(--knx-radius-xs);
+  background: rgba(255, 255, 255, 0.05);
+  
+  // Neon glow effect
+  .neon-effects & {
+    box-shadow: 0 0 5px rgba(0, 255, 255, 0.2);
+  }
+}
+
+//------------------------------------------------------------------------------
+// Status Indicators
+//------------------------------------------------------------------------------
+
+.status-indicators {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--knx-space-sm);
+}
+
+.status-indicator {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  cursor: help;
+  
+  .indicator-icon {
+    width: 12px;
+    height: 12px;
+    transition: all var(--knx-transition-fast);
+  }
+  
+  .indicator-badge {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    min-width: 12px;
+    height: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 8px;
+    font-weight: bold;
+    color: #ffffff;
+    background: var(--knx-error, #ff5555);
+    border-radius: 50%;
+    padding: 1px;
+  }
+  
+  // Specific indicator states
+  &.network-error {
+    .indicator-icon {
+      color: var(--knx-error, #ff5555);
+    }
+  }
+  
+  &.update-available {
+    .indicator-icon {
+      color: var(--knx-success, #00ffaa);
+      animation: pulse 2s infinite;
+    }
+  }
+  
+  &.warning {
+    .indicator-icon {
+      color: var(--knx-warning, #ffaa00);
+    }
+  }
+  
+  &.error {
+    .indicator-icon {
+      color: var(--knx-error, #ff5555);
+    }
+  }
+}
+
+//------------------------------------------------------------------------------
+// System Metrics
+//------------------------------------------------------------------------------
+
+.system-metrics {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--knx-space-md);
+}
+
+.metric {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--knx-space-xs);
+  padding: var(--knx-space-xs) var(--knx-space-sm);
+  border-radius: var(--knx-radius-xs);
+  background: rgba(255, 255, 255, 0.05);
+  transition: all var(--knx-transition-fast);
+  
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+  
+  &.cpu {
+    color: var(--theme-accent-cyan, #00ffff);
+  }
+  
+  &.memory {
+    color: var(--theme-accent-magenta, #ff00ff);
+  }
+}
+
+//------------------------------------------------------------------------------
+// Battery Status
+//------------------------------------------------------------------------------
+
+.battery-status {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--knx-space-xs);
+  padding: var(--knx-space-xs) var(--knx-space-sm);
+  border-radius: var(--knx-radius-xs);
+  background: rgba(255, 255, 255, 0.05);
+  transition: all var(--knx-transition-fast);
+  
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+  
+  .battery-icon {
+    width: 12px;
+    height: 12px;
+    color: var(--theme-text-secondary, #cccccc);
+  }
+  
+  .battery-level {
+    font-weight: 500;
+    color: var(--theme-text-primary, #ffffff);
+  }
+}
+
+//------------------------------------------------------------------------------
+// Current Time
+//------------------------------------------------------------------------------
+
+.current-time {
+  font-family: 'Courier New', monospace;
+  color: var(--theme-text-primary, #ffffff);
+  padding: var(--knx-space-xs) var(--knx-space-sm);
+  border-radius: var(--knx-radius-xs);
+  background: rgba(255, 255, 255, 0.05);
+  
+  // Neon glow effect
+  .neon-effects & {
+    box-shadow: 0 0 5px rgba(0, 255, 255, 0.2);
+  }
+}
+
+//------------------------------------------------------------------------------
+// Animations
+//------------------------------------------------------------------------------
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+//------------------------------------------------------------------------------
+// Responsive Design
+//------------------------------------------------------------------------------
+
+@media (max-width: 1024px) {
+  .status-bar {
+    height: 32px;
+    font-size: var(--knx-font-size-sm);
+  }
+  
+  .status-section {
+    gap: var(--knx-space-md);
+  }
+  
+  .media-status,
+  .time-display,
+  .metric,
+  .battery-status,
+  .current-time {
+    gap: var(--knx-space-sm);
+    padding: var(--knx-space-xs) var(--knx-space-sm);
+  }
+  
+  .indicator-icon {
+    width: 14px;
+    height: 14px;
+  }
+  
+  .battery-icon {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+@media (max-width: 768px) {
+  .status-bar {
+    height: 36px;
+    padding: 0 var(--knx-space-md);
+  }
+  
+  .status-section.right {
+    display: none;
+  }
+  
+  .status-section.center {
+    justify-content: flex-end;
+  }
+  
+  .media-status {
+    .volume-icon {
+      width: 14px;
+      height: 14px;
+    }
+  }
+  
+  .time-display {
+    font-size: var(--knx-font-size-sm);
+  }
+}
+
+@media (max-width: 480px) {
+  .status-bar {
+    height: 32px;
+    padding: 0 var(--knx-space-sm);
+    font-size: var(--knx-font-size-xs);
+  }
+  
+  .status-section.left {
+    display: none;
+  }
+  
+  .status-indicators {
+    gap: var(--knx-space-xs);
+  }
+  
+  .status-indicator {
+    width: 14px;
+    height: 14px;
+  }
+  
+  .indicator-badge {
+    min-width: 10px;
+    height: 10px;
+    font-size: 7px;
+  }
+}
+
+//------------------------------------------------------------------------------
+// High Contrast Mode
+//------------------------------------------------------------------------------
+
+@media (prefers-contrast: high) {
+  .status-bar {
+    border-top: 2px solid currentColor;
+  }
+  
+  .metric,
+  .battery-status,
+  .current-time,
+  .time-display {
+    border: 1px solid currentColor;
+  }
+}
+
+//------------------------------------------------------------------------------
+// Reduced Motion Support
+//------------------------------------------------------------------------------
+
+@media (prefers-reduced-motion: reduce) {
+  .status-indicator.update-available .indicator-icon {
+    animation: none;
+  }
+  
+  .metric,
+  .battery-status,
+  .time-display,
+  .current-time {
+    transition: none;
+  }
+}
+
+//------------------------------------------------------------------------------
+// Print Styles
+//------------------------------------------------------------------------------
+
+@media print {
+  .status-bar {
+    display: none;
+  }
+}

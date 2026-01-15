@@ -1,0 +1,16 @@
+﻿{
+    "id": "com.developer.starter",
+    "name": "KNOUX Starter Plugin",
+    "version": "1.0.0",
+    "description": "A template plugin demonstrating the power of KNOUX Player X architecture.",
+    "entry": "dist/index.js",
+    "permissions": [
+        "ui:overlay",
+        "network:fetch"
+    ],
+    "minCoreVersion": "1.0.0",
+    "author": {
+        "name": "Developer Name",
+        "url": "https://knoux.tech"
+    }
+}

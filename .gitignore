@@ -1,0 +1,342 @@
+﻿# ==============================================================================
+# KNOUX Player X - Git Ignore Configuration
+# ==============================================================================
+# Project: KNOUX Player X
+# File: C:\Users\Aisha\Downloads\knox-player-x\.gitignore
+# Role: Source Control Exclusion Rules for Project Hygiene
+# Layer: Core
+# Author: SADEK ELGAZAR (KNOUX)
+# Status: FINALIZED
+# ==============================================================================
+
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Production builds
+dist/
+release/
+build/
+out/
+app-builds/
+
+# Development tools
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by Jest
+coverage/
+*.lcov
+
+# Dependency directories
+jspm_packages/
+web_modules/
+
+# TypeScript cache
+*.tsbuildinfo
+.tscache/
+
+# Optional npm cache directory
+.npm
+.npmrc
+
+# Optional eslint cache
+.eslintcache
+
+# Optional REPL history
+.node_repl_history
+.repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# dotenv environment variables file
+.env
+.env.test
+.env.production
+.env.local
+.env.development
+
+# parcel-bundler cache
+.cache/
+
+# next.js build output
+.next/
+
+# nuxt.js build output
+.nuxt/
+
+# vuepress build output
+.vuepress/dist/
+
+# Serverless directories
+.serverless/
+
+# FuseBox cache
+.fusebox/
+
+# DynamoDB Local files
+.dynamodb/
+
+# TernJS port file
+.tern-port
+
+# Stores VSCode versions used for testing VSCode extensions
+.vscode-test/
+
+# yarn v2
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.*
+
+# IDE
+.vs/
+*.user
+*.userprefs
+*.suo
+_ReSharper*/
+*.ReSharper
+*.DotSettings.user
+
+# OS generated files
+ehthumbs_vista.db
+Icon?
+[Tt]humbs.db
+Desktop.ini
+
+# Backup files
+*.bak
+*.backup
+*.old
+*.orig
+*.tmp
+*.temp
+
+# Temporary files
+temp/
+tmp/
+*.tmp
+*.temp
+
+# Compiled binary addons (node-gyp outputs)
+build/Release/
+build/Debug/
+
+# Electron build artifacts
+*.app
+*.exe
+*.dmg
+*.deb
+*.rpm
+*.snap
+*.AppImage
+*.msi
+*.pkg
+*.flatpak
+
+# Visual Studio Code
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Lock files (except package-lock.json which is committed)
+yarn.lock
+pnpm-lock.yaml
+
+# Test coverage
+coverage/
+
+# Documentation builds
+docs/_build/
+docs/.vitepress/dist/
+
+# Local configuration
+config.local.json
+settings.local.json
+
+# Media cache
+.cache/
+.thumbnail/
+.previews/
+
+# IDE specific
+*.iml
+*.ipr
+*.iws
+.out/
+.classes/
+
+# Gradle
+.gradle/
+build/
+
+# Maven
+target/
+
+# SASS/SCSS cache
+.sass-cache/
+*.css.map
+
+# TypeScript build
+lib/
+lib64/
+
+# NuGet
+*.nuget.props
+*.nuget.targets
+packages/
+
+# ReSharper
+_ReSharper.*
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+
+# TeamCity
+_TeamCity*
+
+# DotCover
+*.dotCover
+
+# NCrunch
+_NCrunch_*
+.*crunch*.local.xml
+nCrunchTemp_*
+
+# Local History
+.localhistory/
+
+# Chef
+.chef/config.rb
+.chef/knife.rb
+
+# Vagrant
+.vagrant/
+
+# WebStorm
+*.ws.js
+
+# IntelliJ IDEA
+*.iml
+*.ipr
+*.iws
+.out/
+.idea/
+.idea_modules/
+
+# RubyMine
+.ruby-version
+.ruby-gemset
+
+# App Engine
+.appengine/
+.appcfg_oauth2_tokens
+.appspot_oauth2_tokens
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+Testing/
+Makefile
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
+_deps/
+
+# CLion
+.clang-format
+.clang-tidy
+
+# XCode
+*.xcworkspace
+*.xcodeproj
+*.xcuserstate
+*.xcuserdata
+
+# Android Studio
+*.apk
+*.ap_
+*.aab
+*.dex
+*.class
+bin/
+gen/
+local.properties
+.provisio/
+*.log
+.keystore
+*.jks
+*.bks
+captures/
+.externalNativeBuild/
+.cxx/
+*.apk
+*.ap_
+*.aab
+
+# Firebase
+.firebase/
+firebase-debug.log
+
+# Gradle
+.gradle/
+**/build/
+!gradle-wrapper.jar
+
+# Keystore files
+*.jks
+*.keystore
+
+# Log files
+*.log.*
+
+# SQLite databases
+*.db-shm
+*.db-wal
+
+# KNOUX Player X Specific
+user-data/
+app-data/
+media-cache/
+thumbnails/
+.history/
+.temp-media/
+.debug/
+.profile/
+.settings/
+.workspace/

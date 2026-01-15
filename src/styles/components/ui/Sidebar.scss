@@ -1,0 +1,391 @@
+﻿//==============================================================================
+// KNOUX Player X™ - Sidebar Styles
+//==============================================================================
+// Project: KNOUX Player X™
+// File: C:\Users\Aisha\Downloads\knox-player-x™\src\styles\components\ui\Sidebar.scss
+// Role: Cinematic Intelligence Sidebar Styling
+// Layer: UI
+// Author: SADEK ELGAZAR (KNOUX)
+// Status: FINALIZED
+//==============================================================================
+
+//------------------------------------------------------------------------------
+// Sidebar Container
+//------------------------------------------------------------------------------
+
+.sidebar {
+  width: 250px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: rgba(10, 10, 26, 0.9);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-right: 1px solid rgba(0, 255, 255, 0.2);
+  transition: all var(--knx-transition-normal);
+  z-index: var(--knx-z-sticky);
+  
+  // Glassmorphism effect
+  &.glassmorphism {
+    background: rgba(10, 10, 26, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+  
+  // Neon effects
+  &.neon-effects {
+    border-right-color: rgba(0, 255, 255, 0.3);
+    box-shadow: inset -5px 0 15px rgba(0, 255, 255, 0.1);
+  }
+  
+  // Collapsed state
+  &.collapsed {
+    width: 60px;
+    
+    .nav-label,
+    .toggle-label {
+      opacity: 0;
+      visibility: hidden;
+      width: 0;
+      margin-left: 0;
+    }
+    
+    .nav-item {
+      justify-content: center;
+    }
+  }
+  
+  // Animation state
+  &.animating {
+    transition: all var(--knx-transition-normal);
+  }
+}
+
+//------------------------------------------------------------------------------
+// Navigation List
+//------------------------------------------------------------------------------
+
+.sidebar-nav-list {
+  flex: 1;
+  list-style: none;
+  padding: var(--knx-space-md) 0;
+  margin: 0;
+  overflow-y: auto;
+  
+  // Custom scrollbar
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: var(--theme-primary, #00ffff);
+    border-radius: 2px;
+  }
+}
+
+//------------------------------------------------------------------------------
+// Navigation Items
+//------------------------------------------------------------------------------
+
+.nav-item {
+  margin: var(--knx-space-xs) 0;
+  border-radius: var(--knx-radius-md);
+  transition: all var(--knx-transition-fast);
+  
+  &.active {
+    background: rgba(0, 255, 255, 0.15);
+    
+    &.neon-glow {
+      box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+      border: 1px solid rgba(0, 255, 255, 0.3);
+    }
+  }
+  
+  &.hovered:not(.active) {
+    background: rgba(255, 255, 255, 0.05);
+    
+    .nav-link {
+      transform: translateX(2px);
+    }
+  }
+}
+
+//------------------------------------------------------------------------------
+// Navigation Links
+//------------------------------------------------------------------------------
+
+.nav-link {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: var(--knx-space-sm) var(--knx-space-md);
+  background: transparent;
+  border: none;
+  color: var(--theme-text-secondary, #cccccc);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all var(--knx-transition-fast);
+  position: relative;
+  overflow: hidden;
+  
+  &:hover,
+  &:focus {
+    color: var(--theme-text-primary, #ffffff);
+    outline: none;
+  }
+  
+  &.active {
+    color: var(--theme-primary, #00ffff);
+    font-weight: 500;
+  }
+  
+  // Animated underline effect
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: var(--knx-space-md);
+    right: var(--knx-space-md);
+    height: 2px;
+    background: var(--theme-primary, #00ffff);
+    transform: scaleX(0);
+    transition: transform var(--knx-transition-normal);
+  }
+  
+  &:hover::after,
+  &.active::after {
+    transform: scaleX(1);
+  }
+}
+
+//------------------------------------------------------------------------------
+// Navigation Icons
+//------------------------------------------------------------------------------
+
+.nav-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  transition: all var(--knx-transition-fast);
+  
+  &.active {
+    color: var(--theme-primary, #00ffff);
+    filter: drop-shadow(0 0 5px rgba(0, 255, 255, 0.5));
+  }
+  
+  &.hovered {
+    transform: scale(1.1);
+  }
+}
+
+//------------------------------------------------------------------------------
+// Navigation Labels
+//------------------------------------------------------------------------------
+
+.nav-label {
+  margin-left: var(--knx-space-md);
+  font-size: var(--knx-font-size-base);
+  font-weight: 400;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: all var(--knx-transition-normal);
+  opacity: 1;
+  visibility: visible;
+}
+
+//------------------------------------------------------------------------------
+// Sidebar Footer
+//------------------------------------------------------------------------------
+
+.sidebar-footer {
+  padding: var(--knx-space-md);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+//------------------------------------------------------------------------------
+// Collapse Toggle
+//------------------------------------------------------------------------------
+
+.collapse-toggle {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: var(--knx-space-sm) var(--knx-space-md);
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--knx-radius-md);
+  color: var(--theme-text-secondary, #cccccc);
+  cursor: pointer;
+  transition: all var(--knx-transition-fast);
+  
+  &:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(0, 255, 255, 0.3);
+    color: var(--theme-text-primary, #ffffff);
+    transform: translateY(-1px);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+  
+  &:focus {
+    outline: 2px solid var(--theme-primary, #00ffff);
+    outline-offset: 2px;
+  }
+}
+
+.toggle-icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  transition: all var(--knx-transition-fast);
+}
+
+.toggle-label {
+  margin-left: var(--knx-space-md);
+  font-size: var(--knx-font-size-sm);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: all var(--knx-transition-normal);
+  opacity: 1;
+  visibility: visible;
+}
+
+//------------------------------------------------------------------------------
+// Responsive Design
+//------------------------------------------------------------------------------
+
+@media (max-width: 1024px) {
+  .sidebar {
+    width: 200px;
+    
+    &.collapsed {
+      width: 50px;
+    }
+  }
+  
+  .nav-label {
+    font-size: var(--knx-font-size-sm);
+  }
+  
+  .toggle-label {
+    font-size: var(--knx-font-size-xs);
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    max-height: 50vh;
+    border-right: none;
+    border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+    
+    &.collapsed {
+      width: 100%;
+    }
+  }
+  
+  .sidebar-nav-list {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: var(--knx-space-sm) var(--knx-space-md);
+  }
+  
+  .nav-item {
+    margin: 0 var(--knx-space-xs);
+    flex-shrink: 0;
+  }
+  
+  .nav-link {
+    padding: var(--knx-space-sm) var(--knx-space-md);
+  }
+  
+  .sidebar-footer {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .sidebar {
+    &.collapsed {
+      .nav-link {
+        padding: var(--knx-space-sm);
+      }
+    }
+  }
+  
+  .nav-label,
+  .toggle-label {
+    display: none;
+  }
+  
+  .nav-icon {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+//------------------------------------------------------------------------------
+// High Contrast Mode
+//------------------------------------------------------------------------------
+
+@media (prefers-contrast: high) {
+  .sidebar {
+    border-right: 2px solid currentColor;
+  }
+  
+  .nav-link {
+    border: 1px solid transparent;
+    
+    &:focus {
+      border-color: currentColor;
+    }
+  }
+  
+  .collapse-toggle {
+    border: 1px solid currentColor;
+  }
+}
+
+//------------------------------------------------------------------------------
+// Reduced Motion Support
+//------------------------------------------------------------------------------
+
+@media (prefers-reduced-motion: reduce) {
+  .sidebar,
+  .nav-item,
+  .nav-link,
+  .nav-icon,
+  .nav-label,
+  .collapse-toggle,
+  .toggle-icon,
+  .toggle-label {
+    transition: none;
+  }
+  
+  .nav-link::after {
+    display: none;
+  }
+}
+
+//------------------------------------------------------------------------------
+// Print Styles
+//------------------------------------------------------------------------------
+
+@media print {
+  .sidebar {
+    display: none;
+  }
+}

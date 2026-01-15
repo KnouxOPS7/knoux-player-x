@@ -1,0 +1,256 @@
+﻿/**
+ * ================================================================================
+ * KNOUX Player X
+ * ================================================================================
+ * Project: KNOUX Player X
+ * File: C:\Users\Aisha\Downloads\knox-player-x\electron-builder.config.js
+ * Role: Electron Builder Configuration for Cross-Platform Distribution
+ * Layer: Core
+ * Author: SADEK ELGAZAR (KNOUX)
+ * Status: FINALIZED
+ * ================================================================================
+ * 
+ * This configuration manages the packaging and distribution of KNOUX Player X
+ * across multiple platforms with cinematic intelligence deployment features:
+ * 
+ * - Multi-platform build targets (Windows, macOS, Linux)
+ * - Advanced code signing and notarization
+ * - Optimized compression and packaging
+ * - Secure artifact generation
+ * - Automated update publishing
+ * - Platform-specific optimizations
+ * - Resource embedding and exclusion
+ * - Performance-tuned distributions
+ * - Compliance and certification handling
+ * - Enterprise deployment readiness
+ */
+
+const { readdirSync } = require('fs');
+const { join } = require('path');
+
+// Helper to get all icon files
+const getIconFiles = (dir) => {
+  try {
+    return readdirSync(dir)
+      .filter(file => /\.(icns|ico|png)$/i.test(file))
+      .map(file => join(dir, file));
+  } catch {
+    return [];
+  }
+};
+
+// Base configuration
+const config = {
+  appId: 'dev.knoux.playerx',
+  productName: 'KNOUX Player X',
+  copyright: 'Copyright  2024 SADEK ELGAZAR (KNOUX)',
+  
+  directories: {
+    output: 'release',
+    buildResources: 'resources'
+  },
+  
+  files: [
+    'dist/**/*',
+    'node_modules/**/*',
+    'package.json',
+    '!node_modules/@types/**/*',
+    '!node_modules/**/*.map',
+    '!node_modules/**/*.md',
+    '!**/*.test.*',
+    '!**/*.spec.*',
+    '!**/*.d.ts',
+    '!**/__tests__/**/*',
+    '!**/__mocks__/**/*'
+  ],
+  
+  extraResources: [
+    {
+      from: 'resources/',
+      to: 'resources/',
+      filter: ['**/*']
+    }
+  ],
+  
+  extraFiles: [
+    {
+      from: 'LICENSE',
+      to: 'LICENSE'
+    },
+    {
+      from: 'README.md',
+      to: 'README.md'
+    }
+  ],
+  
+  asar: true,
+  asarUnpack: [
+    '**/*.node',
+    'resources/**/*'
+  ],
+  
+  compression: 'maximum',
+  npmRebuild: false,
+  
+  win: {
+    target: [
+      {
+        target: 'nsis',
+        arch: ['x64']
+      },
+      {
+        target: 'portable',
+        arch: ['x64']
+      }
+    ],
+    icon: 'resources/icons/win/icon.ico',
+    publisherName: 'SADEK ELGAZAR (KNOUX)',
+    verifyUpdateCodeSignature: false,
+    rfc3161TimeStampServer: 'http://timestamp.digicert.com',
+    timeStampServer: 'http://timestamp.digicert.com'
+  },
+  
+  nsis: {
+    oneClick: false,
+    allowToChangeInstallationDirectory: true,
+    deleteAppDataOnUninstall: true,
+    installerIcon: 'resources/icons/win/installer.ico',
+    uninstallerIcon: 'resources/icons/win/uninstaller.ico',
+    installerHeaderIcon: 'resources/icons/win/icon.ico',
+    createDesktopShortcut: true,
+    createStartMenuShortcut: true,
+    shortcutName: 'KNOUX Player X',
+    artifactName: 'KNOUX-Player-X-Setup-\-\.',
+    include: 'resources/installer/windows/installer.nsh',
+    perMachine: false,
+    differentialPackage: true
+  },
+  
+  portable: {
+    artifactName: 'KNOUX-Player-X-Portable-\-\.',
+    useZip: true
+  },
+  
+  mac: {
+    category: 'public.app-category.video',
+    target: [
+      {
+        target: 'dmg',
+        arch: ['x64', 'arm64']
+      },
+      {
+        target: 'zip',
+        arch: ['x64', 'arm64']
+      }
+    ],
+    icon: 'resources/icons/mac/icon.icns',
+    extendInfo: {
+      NSCameraUsageDescription: 'This app requires camera access for advanced visual effects',
+      NSMicrophoneUsageDescription: 'This app requires microphone access for audio enhancement features',
+      NSRequiresAquaSystemAppearance: false
+    },
+    hardenedRuntime: true,
+    gatekeeperAssess: false,
+    entitlements: 'resources/entitlements.mac.plist',
+    entitlementsInherit: 'resources/entitlements.mac.plist',
+    provisioningProfile: undefined
+  },
+  
+  dmg: {
+    background: 'resources/installer/dmg-background.png',
+    icon: 'resources/icons/mac/icon.icns',
+    iconSize: 128,
+    contents: [
+      {
+        x: 380,
+        y: 240,
+        type: 'link',
+        path: '/Applications'
+      },
+      {
+        x: 120,
+        y: 240,
+        type: 'file'
+      }
+    ],
+    window: {
+      width: 600,
+      height: 400
+    },
+    artifactName: 'KNOUX-Player-X-\-\.'
+  },
+  
+  linux: {
+    target: [
+      {
+        target: 'AppImage',
+        arch: ['x64']
+      },
+      {
+        target: 'deb',
+        arch: ['x64']
+      },
+      {
+        target: 'rpm',
+        arch: ['x64']
+      }
+    ],
+    category: 'AudioVideo;Video',
+    icon: 'resources/icons/png',
+    maintainer: 'SADEK ELGAZAR (KNOUX) <knoux@player-x.dev>',
+    vendor: 'KNOUX7-Core',
+    synopsis: 'Cinematic Intelligence Media Player',
+    description: 'KNOUX Player X delivers an immersive media experience with Glassmorphism UI, Offline AI Enhancement, and cinematic intelligence processing.',
+    desktop: {
+      Name: 'KNOUX Player X',
+      Comment: 'Cinematic Intelligence Media Player',
+      Keywords: 'media;video;audio;player;cinematic;intelligence;glassmorphism;neon',
+      StartupNotify: 'true',
+      StartupWMClass: 'knoux-player-x',
+      MimeType: 'application/x-extension-m4a;application/x-extension-mp4;application/x-extension-mpg;application/x-extension-mpeg;application/x-extension-mpv;application/x-extension-mkv;application/x-extension-flv;application/x-extension-webm;application/x-extension-avi;application/x-extension-wmv;application/x-extension-mov;application/x-extension-qt;video/*;audio/*;'
+    }
+  },
+  
+  appImage: {
+    artifactName: 'KNOUX-Player-X-\-\.',
+    compression: 'maximum'
+  },
+  
+  deb: {
+    depends: ['libc6', 'libgtk-3-0', 'libnotify4', 'libnss3', 'libxss1', 'libxtst6', 'xdg-utils', 'libatspi2.0-0', 'libdrm2', 'libgbm1', 'libxcb-dri3-0'],
+    recommends: ['pulseaudio | libasound2'],
+    suggests: ['gir1.2-gnomekeyring-1.0', 'libgnome-keyring0'],
+    artifactName: 'knoux-player-x_\_\.'
+  },
+  
+  rpm: {
+    depends: ['gtk3', 'libnotify', 'nss', 'libXScrnSaver', 'libXtst', 'xdg-utils', 'alsa-lib', 'mesa-libgbm'],
+    artifactName: 'knoux-player-x-\.\.'
+  },
+  
+  publish: [
+    {
+      provider: 'github',
+      owner: 'knuux7-ctrl',
+      repo: 'KNOX-Player-X-',
+      releaseType: 'draft',
+      vPrefixedTagName: true,
+      private: false
+    }
+  ],
+  
+  // Build hooks
+  afterPack: './scripts/afterPack.js',
+  afterSign: './scripts/afterSign.js',
+  afterAllArtifactBuild: './scripts/afterAllArtifactBuild.js',
+  
+  // Security
+  detectUpdateChannel: true,
+  generateUpdatesFilesForAllChannels: true,
+  
+  // Performance
+  removePackageScripts: true,
+  forceCodeSigning: false
+};
+
+module.exports = config;

@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' ws://localhost:* wss://localhost:*;">
+    <title>KNOUX Player X - Cinematic Intelligence Media System</title>
+    <meta name="description" content="KNOUX Player X delivers an immersive media experience with Glassmorphism UI, Offline AI Enhancement, and cinematic intelligence processing.">
+    <meta name="keywords" content="media, video, audio, player, cinematic, intelligence, glassmorphism, neon, offline, ai">
+    <meta name="author" content="SADEK ELGAZAR (KNOUX)">
+    <meta name="theme-color" content="#000000">
+    <link rel="icon" type="image/png" sizes="32x32" href="../resources/icons/png/32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../resources/icons/png/16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../resources/icons/png/180x180.png">
+    <link rel="manifest" href="../public/manifest.json">
+    <style>
+        /* Critical CSS for initial render performance */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background: #000000;
+            color: #ffffff;
+            overflow: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        #root {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            background: linear-gradient(135deg, #000000 0%, #1a1a2e 50%, #16213e 100%);
+        }
+        
+        /* Loading spinner */
+        .loading-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+        
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-top: 4px solid #00ffff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        .loading-text {
+            color: #ffffff;
+            font-size: 14px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            opacity: 0.7;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Glassmorphism effect */
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Neon glow effect */
+        .neon-glow {
+            text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 40px #00ffff;
+            box-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff;
+        }
+    </style>
+</head>
+<body>
+    <div id="root">
+        <!-- Initial loading state -->
+        <div class="loading-container">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">Initializing KNOUX Player X</div>
+        </div>
+    </div>
+    
+    <!-- Preload critical resources -->
+    <link rel="prefetch" href="../resources/fonts/inter-var.woff2">
+    <link rel="prefetch" href="../resources/icons/svg/logo.svg">
+    
+    <!-- Performance monitoring -->
+    <script>
+        // Measure initial load performance
+        if ('performance' in window) {
+            performance.mark('app-start');
+        }
+        
+        // Handle uncaught errors gracefully
+        window.addEventListener('error', (event) => {
+            console.error('Unhandled error:', event.error);
+        });
+        
+        window.addEventListener('unhandledrejection', (event) => {
+            console.error('Unhandled promise rejection:', event.reason);
+            event.preventDefault();
+        });
+    </script>
+</body>
+</html>

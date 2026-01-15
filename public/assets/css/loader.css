@@ -1,0 +1,14 @@
+﻿/* KNOUX Pre-React Loader */
+body { margin: 0; background: #050505; color: #fff; overflow: hidden; }
+#loading-layer {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    background: radial-gradient(circle at center, #1a1a2e 0%, #000000 100%);
+    z-index: 9999;
+}
+.knoux-spinner {
+    width: 50px; height: 50px; border: 3px solid rgba(0,255,255,0.1);
+    border-top: 3px solid #00ffff; border-radius: 50%;
+    animation: knx-spin 1s linear infinite; box-shadow: 0 0 15px #00ffff44;
+}
+@keyframes knx-spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }

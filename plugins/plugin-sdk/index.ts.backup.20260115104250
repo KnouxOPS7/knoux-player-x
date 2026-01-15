@@ -1,0 +1,15 @@
+﻿/**
+ * Project: KNOUX Player X™
+ * SDK Version: 1.0.0 Alpha
+ * Author: knoux
+ * Purpose: Central Export for all Plugin Development Requirements
+ */
+
+export * from "./types/manifest";
+export * from "./types/context";
+export * from "./interfaces/IAudioProcessor";
+export { KnouxPlugin } from "./KnouxPlugin";
+
+// Helper Type for Typescript auto-completion in plugin projects
+import { KnouxPlugin } from "./KnouxPlugin";
+export type PluginConstructor = new () => KnouxPlugin;

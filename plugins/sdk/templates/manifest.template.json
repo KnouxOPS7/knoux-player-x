@@ -1,0 +1,12 @@
+﻿{
+"id": "com.yourname.plugin-id",
+"name": "My Plugin Template",
+"version": "1.0.0",
+"description": "A brief description of what this plugin does.",
+"author": "Developer Name",
+"minCoreVersion": "1.0.0",
+"permissions": [
+"ui:overlay"
+],
+"entry": "dist/index.js"
+}

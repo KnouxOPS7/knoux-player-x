@@ -1,0 +1,35 @@
+﻿{
+  "general": {
+    "title": "General Settings",
+    "language": "Language",
+    "theme": "Theme",
+    "startup": "Startup Behavior"
+  },
+  "playback": {
+    "title": "Playback",
+    "autoplay": "Autoplay Next Episode",
+    "resume": "Resume Playback Position",
+    "speed": "Default Playback Speed",
+    "hardwareAcceleration": "Hardware Acceleration"
+  },
+  "audio": {
+    "title": "Audio & DSP",
+    "outputDevice": "Output Device",
+    "channels": "Speaker Configuration",
+    "dialogueBoost": "AI Dialogue Clarity",
+    "compressor": "Dynamic Range Compression"
+  },
+  "subtitles": {
+    "title": "Subtitles",
+    "font": "Font Family",
+    "size": "Font Size",
+    "color": "Primary Color",
+    "bg": "Background Opacity",
+    "autoSearch": "Auto-search Subtitles"
+  },
+  "buttons": {
+    "save": "Save Changes",
+    "reset": "Reset Defaults",
+    "export": "Export Profile"
+  }
+}

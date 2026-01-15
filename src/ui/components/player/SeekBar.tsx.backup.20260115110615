@@ -1,0 +1,20 @@
+﻿// SeekBar Component
+// KNOUX Player X - Version 1.0.0
+
+import React from 'react';
+import { motion } from 'framer-motion';
+
+interface SeekBarProps {
+    // Add props here
+}
+
+const SeekBar: React.FC<SeekBarProps> = () => {
+    return (
+        <div className="SeekBar.toLowerCase()-container">
+            <h2>SeekBar</h2>
+            {/* Component content */}
+        </div>
+    );
+};
+
+export default SeekBar;

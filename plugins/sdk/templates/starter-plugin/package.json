@@ -1,0 +1,14 @@
+﻿{
+  "name": "knoux-plugin-starter",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc -p ../../tsconfig.plugin.json"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "peerDependencies": {
+    "knoux-player-x": "^1.0.0"
+  }
+}

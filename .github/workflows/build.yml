@@ -1,0 +1,42 @@
+﻿name: KNOUX Core Build
+
+on:
+  push:
+    branches: [ "main", "dev" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Use Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
+        cache: 'npm'
+        
+    - name: Install Dependencies
+      run: npm install
+      
+    - name: Lint Code
+      run: npm run lint
+      
+    - name: Build Webpack/Electron Bundle
+      run: npm run package
+      
+    - name: Test Native Core (Placeholder)
+      run: |
+        mkdir build
+        cd build
+        # cmake ..
+        # cmake --build .
+      
+    - name: Archive Production Artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: Knoux-Player-Win64
+        path: out/make/squirrel.windows/x64/*.exe
