@@ -2,7 +2,7 @@
     "name": "knoux-player-x",
     "version": "1.0.0",
     "description": "KNOUX Player X™ - The Cinematic Intelligence Media System",
-    "main": ".webpack/main/index.js",
+    "main": ".webpack/main/desktop/main/main.js",
     "scripts": {
         "start": "electron-forge start",
         "package": "electron-forge package",
