@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react';
 console.log('BOOT: renderer entry loaded');
 import { createRoot } from 'react-dom/client';
+import './styles/app.css';
 
 type Theme = 'dark' | 'light';
 
@@ -31,38 +32,8 @@ const App: React.FC = () => {
   );
 
   return (
-    <div
-      style={{
-        width: '100vw',
-        height: '100vh',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        background: palette.background,
-        color: palette.textPrimary,
-        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-        padding: '32px',
-      }}
-    >
-      <div
-        style={{
-          width: '100%',
-          maxWidth: 960,
-          height: '100%',
-          maxHeight: 560,
-          borderRadius: 32,
-          background: palette.cardBackground,
-          boxShadow: '0 24px 80px rgba(0,0,0,0.55), 0 0 40px rgba(168, 85, 247, 0.56)',
-          border: '1px solid rgba(255, 255, 255, 0.14)',
-          backdropFilter: 'blur(26px)',
-          WebkitBackdropFilter: 'blur(26px)',
-          padding: 32,
-          display: 'flex',
-          flexDirection: 'column',
-          position: 'relative',
-          overflow: 'hidden',
-        }}
-      >
+    <div className={`app ${theme === 'dark' ? 'theme-dark' : 'theme-light'}`}>
+      <div className="card">
         <div
           style={{
             position: 'absolute',
@@ -142,16 +113,7 @@ const App: React.FC = () => {
           </button>
         </header>
 
-        <main
-          style={{
-            flex: 1,
-            display: 'grid',
-            gridTemplateColumns: 'minmax(0, 2.1fr) minmax(0, 1.2fr)',
-            gap: 24,
-            position: 'relative',
-            zIndex: 1,
-          }}
-        >
+        <main className="grid">
           <section
             style={{
               borderRadius: 24,
@@ -203,42 +165,15 @@ const App: React.FC = () => {
               onClick={async () => {
                 try {
                   const preset = await (window as any).knouxAPI.invoke('knux:dsp:preset', 'flat');
-                  alert(`✅ DSP Preset loaded:\nGain=${preset.gain}, Bass=${preset.bass}, Treble=${preset.treble}`);
+                  alert(
+                    `✅ DSP Preset loaded:\nGain=${preset.gain}, Bass=${preset.bass}, Treble=${preset.treble}`
+                  );
                 } catch (err) {
                   console.error('DSP preset invoke failed', err);
                   alert('❌ DSP preset invoke failed. Check console.');
                 }
               }}
-              style={{
-                marginTop: 24,
-                alignSelf: 'flex-start',
-                padding: '14px 32px',
-                borderRadius: 999,
-                border: '0',
-                fontSize: 15,
-                fontWeight: 600,
-                letterSpacing: 0.6,
-                textTransform: 'uppercase',
-                background: 'linear-gradient(120deg, #a855f7, #ec4899, #f97316)',
-                color: '#0b0214',
-                cursor: 'pointer',
-                boxShadow:
-                  '0 12px 32px rgba(168, 85, 247, 0.65), 0 0 24px rgba(236, 72, 153, 0.85)',
-                transform: 'translateY(0)',
-                transition:
-                  'transform 0.16s ease-out, box-shadow 0.16s ease-out, filter 0.16s ease-out',
-                filter: 'drop-shadow(0 0 12px rgba(249, 115, 22, 0.5))',
-              }}
-              onMouseOver={e => {
-                e.currentTarget.style.transform = 'translateY(-2px)';
-                e.currentTarget.style.boxShadow =
-                  '0 18px 42px rgba(168, 85, 247, 0.9), 0 0 32px rgba(236, 72, 153, 1)';
-              }}
-              onMouseOut={e => {
-                e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow =
-                  '0 12px 32px rgba(168, 85, 247, 0.65), 0 0 24px rgba(236, 72, 153, 0.85)';
-              }}
+              className="accent-btn"
             >
               Boot KNOUX Core
             </button>

@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, session } from 'electron';
 import fs from 'fs';
 import path from 'path';
 import { setupDSPMainHandler } from './native/dsp/dspBridge';
@@ -53,6 +53,11 @@ function createWindow(): void {
 
 app.whenReady().then(() => {
   setupDSPMainHandler();
+  const ses = session.defaultSession;
+  ses.setPermissionRequestHandler((_webContents, permission, callback) => {
+    const allowed = ['notifications', 'fullscreen', 'pointerLock', 'openExternal'];
+    callback(allowed.includes(permission));
+  });
   createWindow();
 });
 
