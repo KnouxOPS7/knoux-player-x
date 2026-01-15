@@ -18,6 +18,7 @@ const config: ForgeConfig = {
   ],
   plugins: [
     new WebpackPlugin({
+      port: 9000,
       mainConfig: {
         entry: './desktop/main/main.ts',
         module: {
