@@ -21,7 +21,7 @@ const config: ForgeConfig = {
   ],
   plugins: [
     new WebpackPlugin({
-      port: 3000,
+      port: 9000,
       mainConfig: {
         entry: './desktop/main/main.ts',
         module: {
@@ -55,7 +55,7 @@ const config: ForgeConfig = {
           ],
         },
         devServer: {
-          port: 3000,
+          port: 9000,
         },
         entryPoints: [
           {
