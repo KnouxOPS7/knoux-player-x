@@ -1,7 +1,7 @@
 ﻿// Main Application Layout
 // KNOUX Player X - Version 1.0.0
 
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import PlayerView from '../views/PlayerView/PlayerView';
 import PlaylistView from '../views/PlaylistView/PlaylistView';
@@ -28,19 +28,19 @@ const MainLayout: React.FC = () => {
                         <div className="flex space-x-4 mb-6">
                             <button
                                 onClick={() => setActiveView('player')}
-                                className={px-4 py-2 rounded-lg transition-all }
+                                className="main-layout-button"
                             >
                                 Player
                             </button>
                             <button
                                 onClick={() => setActiveView('playlist')}
-                                className={px-4 py-2 rounded-lg transition-all }
+                                className="main-layout-button"
                             >
                                 Playlist
                             </button>
                             <button
                                 onClick={() => setActiveView('settings')}
-                                className={px-4 py-2 rounded-lg transition-all }
+                                className="main-layout-button"
                             >
                                 Settings
                             </button>

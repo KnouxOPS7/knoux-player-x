@@ -23,6 +23,9 @@ export const persistenceMiddleware: Middleware = (store) => (next) => (action) =
         }, {} as any);
 
         localStorage.setItem("KNOUX_STATE_V1", JSON.stringify(persistedState));
+        if (state.settings) {
+            localStorage.setItem("KNOUX_SETTINGS_V1", JSON.stringify(state.settings));
+        }
     } catch (e) {
         console.error("Failed to save state persistence:", e);
     }

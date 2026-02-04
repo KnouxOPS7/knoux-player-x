@@ -25,8 +25,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import classNames from 'classnames';
-import log from 'electron-log';
+import clsx from 'clsx';
 
 // Icons
 import MinimizeIcon from '../../assets/icons/minimize.svg';
@@ -118,7 +117,7 @@ const TitleBar: React.FC<TitleBarProps> = ({
   
   return (
     <header
-      className={classNames(
+      className={clsx(
         'title-bar',
         className,
         {

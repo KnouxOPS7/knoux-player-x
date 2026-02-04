@@ -1,0 +1,32 @@
+.settings-view {
+  padding: 1.5rem;
+  color: #fff;
+}
+
+.settings-panel {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.settings-panel section {
+  background: rgba(0, 0, 0, 0.35);
+  padding: 1rem;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.settings-panel label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 0.75rem;
+}
+
+.settings-panel input,
+.settings-panel select {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  padding: 0.4rem 0.6rem;
+  border-radius: 0.4rem;
+}

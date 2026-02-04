@@ -1,6 +1,6 @@
-﻿import React, { useRef, useState } from 'react';
+﻿import React from 'react';
 import { useAppDispatch } from '../../../state/hooks/index';
-// import { seekTo } from '../../../state/slices/playbackSlice'; 
+import { seekTo } from '../../../state/slices/playbackSlice'; 
 
 interface SeekBarProps {
     current: number;
@@ -9,11 +9,13 @@ interface SeekBarProps {
 }
 
 export const SeekBar: React.FC<SeekBarProps> = ({ current, duration, buffered = 0 }) => {
+    const dispatch = useAppDispatch();
     const progressPercent = duration > 0 ? (current / duration) * 100 : 0;
     
     // UI Local state for dragging effect optimization
     const handleSeek = (e: React.ChangeEvent<HTMLInputElement>) => {
-        // Dispatch seek action
+        const nextValue = Number(e.target.value);
+        dispatch(seekTo(nextValue));
     };
 
     return (

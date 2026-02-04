@@ -1,0 +1,75 @@
+.knoux-controls-wrapper {
+  width: 100%;
+  padding: 0 1.5rem 1.5rem;
+}
+
+.controls-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.seek-row {
+  width: 100%;
+}
+
+.actions-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.left-group,
+.right-group {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.knoux-seekbar {
+  position: relative;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+}
+
+.knoux-seekbar .track-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  background: rgba(0, 255, 255, 0.6);
+  border-radius: 999px;
+}
+
+.knoux-seekbar .seek-input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.knoux-volume {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.knoux-volume .vol-input {
+  width: 90px;
+}
+
+.speed-control {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.speed-control select {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.4rem;
+}

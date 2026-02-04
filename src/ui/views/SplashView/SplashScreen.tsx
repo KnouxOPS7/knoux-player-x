@@ -1,18 +1,19 @@
-﻿// SplashScreen Component
-// KNOUX Player X - Version 1.0.0
+﻿/**
+ * Project: KNOUX Player X™
+ * Layer: UI -> Splash Screen
+ */
 
-import React from 'react';
-import { motion } from 'framer-motion';
+import React from "react";
+import LoadingAnimation from "./LoadingAnimation";
 
-interface SplashScreenProps {
-    // Add props here
-}
+import "../../../styles/views/SplashView.scss";
 
-const SplashScreen: React.FC<SplashScreenProps> = () => {
+const SplashScreen: React.FC = () => {
     return (
-        <div className="SplashScreen.toLowerCase()-container">
-            <h2>SplashScreen</h2>
-            {/* Component content */}
+        <div className="splash-screen">
+            <LoadingAnimation />
+            <h2>KNOUX Player X</h2>
+            <p>Initializing media systems...</p>
         </div>
     );
 };

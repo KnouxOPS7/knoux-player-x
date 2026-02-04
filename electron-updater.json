@@ -1,0 +1,8 @@
+{
+    "publish": {
+        "provider": "github",
+        "owner": "knoux",
+        "repo": "knoux-player-x",
+        "releaseType": "release"
+    }
+}

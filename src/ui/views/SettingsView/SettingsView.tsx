@@ -1,19 +1,22 @@
-﻿// SettingsView Component
-// KNOUX Player X - Version 1.0.0
+﻿/**
+ * Project: KNOUX Player X™
+ * Layer: UI -> Settings View
+ */
 
-import React from 'react';
-import { motion } from 'framer-motion';
+import React from "react";
+import SettingsPanel from "../../components/settings/SettingsPanel";
 
-interface SettingsViewProps {
-    // Add props here
-}
+import "../../../styles/views/SettingsView.scss";
 
-const SettingsView: React.FC<SettingsViewProps> = () => {
+const SettingsView: React.FC = () => {
     return (
-        <div className="SettingsView.toLowerCase()-container">
-            <h2>SettingsView</h2>
-            {/* Component content */}
-        </div>
+        <section className="settings-view">
+            <header>
+                <h2>Settings</h2>
+                <p>Manage application preferences</p>
+            </header>
+            <SettingsPanel />
+        </section>
     );
 };
 

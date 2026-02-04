@@ -26,6 +26,11 @@ export interface ITrack {
     sizeBytes: number;
     metadata: IMediaMetadata;
     lastPlayed?: number; // timestamp
+    subtitle?: {
+        src: string;
+        label: string;
+        language: string;
+    };
 }
 
 export enum PlayerStatus {

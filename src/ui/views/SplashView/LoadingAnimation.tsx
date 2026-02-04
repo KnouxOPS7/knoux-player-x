@@ -1,18 +1,14 @@
-﻿// LoadingAnimation Component
-// KNOUX Player X - Version 1.0.0
+﻿/**
+ * Project: KNOUX Player X™
+ * Layer: UI -> Loading Animation
+ */
 
-import React from 'react';
-import { motion } from 'framer-motion';
+import React from "react";
 
-interface LoadingAnimationProps {
-    // Add props here
-}
-
-const LoadingAnimation: React.FC<LoadingAnimationProps> = () => {
+const LoadingAnimation: React.FC = () => {
     return (
-        <div className="LoadingAnimation.toLowerCase()-container">
-            <h2>LoadingAnimation</h2>
-            {/* Component content */}
+        <div className="loading-animation">
+            <div className="loading-ring" />
         </div>
     );
 };

@@ -25,19 +25,17 @@
  */
 
 import React, { Suspense, lazy, useEffect, useState } from 'react';
-import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import classNames from 'classnames';
-import log from 'electron-log';
+import clsx from 'clsx';
 
 // Lazy-loaded views for performance optimization
-const SplashView = lazy(() => import('./ui/views/SplashView'));
-const PlayerView = lazy(() => import('./ui/views/PlayerView'));
-const LibraryView = lazy(() => import('./ui/views/LibraryView'));
-const PlaylistView = lazy(() => import('./ui/views/PlaylistView'));
-const SettingsView = lazy(() => import('./ui/views/SettingsView'));
-const DiagnosticsView = lazy(() => import('./ui/views/DiagnosticsView'));
-const MediaBrowserView = lazy(() => import('./ui/views/MediaBrowserView'));
+const SplashView = lazy(() => import('./ui/views/SplashView/SplashScreen'));
+const PlayerView = lazy(() => import('./ui/views/PlayerView/PlayerView'));
+const LibraryView = lazy(() => import('./ui/views/LibraryView/LibraryView'));
+const PlaylistView = lazy(() => import('./ui/views/PlaylistView/PlaylistView'));
+const SettingsView = lazy(() => import('./ui/views/SettingsView/SettingsView'));
+const DiagnosticsView = lazy(() => import('./ui/views/DiagnosticsView/DiagnosticsView'));
+const MediaBrowserView = lazy(() => import('./ui/views/MediaBrowserView/MediaBrowserView'));
 
 // Core UI components
 import MainWindow from './ui/layouts/MainWindow';
@@ -53,6 +51,7 @@ import { selectLocale } from './state/selectors/localizationSelectors';
 // Actions
 import { initializeApp } from './state/slices/appSlice';
 import { loadUserPreferences } from './state/slices/settingsSlice';
+import { useNetworkStatus } from './state/hooks/useNetworkStatus';
 
 // Styles
 import './styles/views/App.scss';
@@ -66,7 +65,6 @@ const VIEW_TRANSITION_DURATION = 300;
 
 // Main application component
 const App: React.FC = () => {
-  const location = useLocation();
   const dispatch = useDispatch();
   
   // State management
@@ -76,6 +74,7 @@ const App: React.FC = () => {
   const locale = useSelector(selectLocale);
   const [isLoading, setIsLoading] = useState(true);
   const [viewTransition, setViewTransition] = useState(false);
+  useNetworkStatus();
   
   // Performance monitoring
   const renderStart = performance.now();
@@ -84,7 +83,7 @@ const App: React.FC = () => {
   useEffect(() => {
     const initApp = async () => {
       try {
-        log.info('Initializing application...');
+        console.info('Initializing application...');
         
         // Load user preferences
         await dispatch(loadUserPreferences()).unwrap();
@@ -93,9 +92,9 @@ const App: React.FC = () => {
         await dispatch(initializeApp()).unwrap();
         
         setIsLoading(false);
-        log.info('Application initialized successfully');
+        console.info('Application initialized successfully');
       } catch (error) {
-        log.error('Failed to initialize application:', error);
+        console.error('Failed to initialize application:', error);
         setIsLoading(false);
       }
     };
@@ -111,7 +110,7 @@ const App: React.FC = () => {
     }, VIEW_TRANSITION_DURATION);
     
     return () => clearTimeout(timer);
-  }, [location.pathname]);
+  }, [currentView]);
   
   // Performance measurement
   useEffect(() => {
@@ -139,10 +138,10 @@ const App: React.FC = () => {
   return (
     <ErrorBoundary>
       <div 
-        className={classNames(
+        className={clsx(
           'app-container',
-          \	heme-\\,
-          \locale-\\,
+          `theme-${theme.name}`,
+          `locale-${locale}`,
           {
             'view-transition': viewTransition,
             'glassmorphism': theme.glassmorphism,
@@ -152,17 +151,16 @@ const App: React.FC = () => {
       >
         <MainWindow>
           <Suspense fallback={<LoadingSpinner size="medium" />}>
-            <Routes location={location}>
-              <Route index element={<Navigate to="/splash" replace />} />
-              <Route path="/splash" element={<SplashView />} />
-              <Route path="/player" element={<PlayerView />} />
-              <Route path="/library" element={<LibraryView />} />
-              <Route path="/playlists" element={<PlaylistView />} />
-              <Route path="/browser" element={<MediaBrowserView />} />
-              <Route path="/settings" element={<SettingsView />} />
-              <Route path="/diagnostics" element={<DiagnosticsView />} />
-              <Route path="*" element={<Navigate to="/player" replace />} />
-            </Routes>
+            {currentView === 'splash' && <SplashView />}
+            {currentView === 'player' && <PlayerView />}
+            {currentView === 'library' && <LibraryView />}
+            {currentView === 'playlists' && <PlaylistView />}
+            {currentView === 'browser' && <MediaBrowserView />}
+            {currentView === 'settings' && <SettingsView />}
+            {currentView === 'diagnostics' && <DiagnosticsView />}
+            {!['splash', 'player', 'library', 'playlists', 'browser', 'settings', 'diagnostics'].includes(currentView) && (
+              <PlayerView />
+            )}
           </Suspense>
         </MainWindow>
         
