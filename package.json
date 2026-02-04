@@ -5,10 +5,13 @@
     "main": ".webpack/main/index.js",
     "scripts": {
         "start": "electron-forge start",
+        "dev": "vite",
+        "build": "vite build",
         "package": "electron-forge package",
         "make": "electron-forge make",
         "publish": "electron-forge publish",
         "lint": "eslint --ext .ts,.tsx .",
+        "type-check": "tsc --noEmit",
         "format": "prettier --write .",
         "test": "jest",
         "postinstall": "electron-builder install-app-deps"
