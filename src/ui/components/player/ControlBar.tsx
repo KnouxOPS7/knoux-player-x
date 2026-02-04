@@ -1,18 +1,15 @@
-﻿// ControlBar Component
-// KNOUX Player X - Version 1.0.0
+﻿/**
+ * Project: KNOUX Player X™
+ * Layer: UI -> Control Bar
+ */
 
-import React from 'react';
-import { motion } from 'framer-motion';
+import React from "react";
+import { ControlsBar } from "./ControlsBar";
 
-interface ControlBarProps {
-    // Add props here
-}
-
-const ControlBar: React.FC<ControlBarProps> = () => {
+const ControlBar: React.FC = () => {
     return (
-        <div className="ControlBar.toLowerCase()-container">
-            <h2>ControlBar</h2>
-            {/* Component content */}
+        <div className="control-bar-container">
+            <ControlsBar visible />
         </div>
     );
 };

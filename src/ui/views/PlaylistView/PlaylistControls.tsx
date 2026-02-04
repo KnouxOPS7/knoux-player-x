@@ -1,18 +1,36 @@
-﻿// PlaylistControls Component
-// KNOUX Player X - Version 1.0.0
+﻿/**
+ * Project: KNOUX Player X™
+ * Layer: UI -> Playlist Controls
+ */
 
-import React from 'react';
-import { motion } from 'framer-motion';
+import React from "react";
 
 interface PlaylistControlsProps {
-    // Add props here
+    onClear: () => void;
+    onShuffle: () => void;
+    onRepeat: () => void;
+    isShuffle: boolean;
+    repeatMode: "none" | "one" | "all";
 }
 
-const PlaylistControls: React.FC<PlaylistControlsProps> = () => {
+const PlaylistControls: React.FC<PlaylistControlsProps> = ({
+    onClear,
+    onShuffle,
+    onRepeat,
+    isShuffle,
+    repeatMode
+}) => {
     return (
-        <div className="PlaylistControls.toLowerCase()-container">
-            <h2>PlaylistControls</h2>
-            {/* Component content */}
+        <div className="playlist-controls">
+            <button type="button" onClick={onShuffle}>
+                Shuffle: {isShuffle ? "On" : "Off"}
+            </button>
+            <button type="button" onClick={onRepeat}>
+                Repeat: {repeatMode}
+            </button>
+            <button type="button" onClick={onClear}>
+                Clear
+            </button>
         </div>
     );
 };

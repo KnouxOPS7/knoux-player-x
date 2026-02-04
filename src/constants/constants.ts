@@ -8,7 +8,7 @@ export const APP_NAME = 'KNOUX Player X™';
 export const APP_VERSION = '1.0.0'; // Bump with release workflow
 
 // Network/HTTP API root
-export const API_ROOT = https://api.knox.player/v1;
+export const API_ROOT = "https://api.knoux.player/v1";
 
 // Audio & Media constants
 export const AUDIO_BUFFER_SIZE_MS = 100;        // Target buffer size for live DSP

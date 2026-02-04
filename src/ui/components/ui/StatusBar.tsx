@@ -25,8 +25,7 @@
  */
 
 import React, { useState, useEffect, useMemo } from 'react';
-import classNames from 'classnames';
-import log from 'electron-log';
+import clsx from 'clsx';
 
 // Icons
 import WifiIcon from '../../assets/icons/wifi.svg';
@@ -133,7 +132,7 @@ const StatusBar: React.FC<StatusBarProps> = ({ className }) => {
           });
         }
       } catch (error) {
-        log.error('Failed to update system metrics:', error);
+        console.error('Failed to update system metrics:', error);
       }
     };
     
@@ -151,7 +150,7 @@ const StatusBar: React.FC<StatusBarProps> = ({ className }) => {
       const totalMinutes = Math.floor(playbackStatus.duration / 60);
       const totalSeconds = Math.floor(playbackStatus.duration % 60);
       
-      return ${currentMinutes}: / :;
+      return `${currentMinutes}:${String(currentSeconds).padStart(2, '0')} / ${totalMinutes}:${String(totalSeconds).padStart(2, '0')}`;
     }
     return '0:00 / 0:00';
   }, [playbackStatus.currentTime, playbackStatus.duration]);
@@ -159,9 +158,9 @@ const StatusBar: React.FC<StatusBarProps> = ({ className }) => {
   // Format system metrics for display
   const formatMetrics = useMemo(() => {
     return {
-      cpu: ${systemMetrics.cpu}%,
-      memory: ${systemMetrics.memory}%,
-      battery: ${systemMetrics.battery}%
+      cpu: `${systemMetrics.cpu}%`,
+      memory: `${systemMetrics.memory}%`,
+      battery: `${systemMetrics.battery}%`
     };
   }, [systemMetrics]);
   
@@ -203,8 +202,8 @@ const StatusBar: React.FC<StatusBarProps> = ({ className }) => {
         <div 
           key="warning" 
           className="status-indicator warning"
-          title={${t('statusBar.warnings')}: }
-          aria-label={${t('statusBar.warnings')}: }
+          title={`${t('statusBar.warnings')}: ${playbackStatus.warnings.length}`}
+          aria-label={`${t('statusBar.warnings')}: ${playbackStatus.warnings.length}`}
         >
           <WarningIcon className="indicator-icon" />
           <span className="indicator-badge">{playbackStatus.warnings.length}</span>
@@ -218,8 +217,8 @@ const StatusBar: React.FC<StatusBarProps> = ({ className }) => {
         <div 
           key="error" 
           className="status-indicator error"
-          title={${t('statusBar.errors')}: }
-          aria-label={${t('statusBar.errors')}: }
+          title={`${t('statusBar.errors')}: ${playbackStatus.errors.length}`}
+          aria-label={`${t('statusBar.errors')}: ${playbackStatus.errors.length}`}
         >
           <ErrorIcon className="indicator-icon" />
           <span className="indicator-badge">{playbackStatus.errors.length}</span>
@@ -232,7 +231,7 @@ const StatusBar: React.FC<StatusBarProps> = ({ className }) => {
   
   return (
     <footer 
-      className={classNames(
+      className={clsx(
         'status-bar',
         className,
         {
@@ -269,15 +268,15 @@ const StatusBar: React.FC<StatusBarProps> = ({ className }) => {
       {/* Right Section - System Metrics */}
       <div className="status-section right">
         <div className="system-metrics">
-          <span className="metric cpu" title={CPU: }>
+          <span className="metric cpu" title={`CPU: ${formatMetrics.cpu}`}>
             CPU: {formatMetrics.cpu}
           </span>
           
-          <span className="metric memory" title={Memory: }>
+          <span className="metric memory" title={`Memory: ${formatMetrics.memory}`}>
             RAM: {formatMetrics.memory}
           </span>
           
-          <div className="battery-status" title={${t('statusBar.battery')}: }>
+          <div className="battery-status" title={`${t('statusBar.battery')}: ${formatMetrics.battery}`}>
             <BatteryIcon className="battery-icon" />
             <span className="battery-level">{formatMetrics.battery}</span>
           </div>

@@ -25,7 +25,7 @@
  */
 
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 // Context hooks
 import { useLocalization } from '../../../contexts/LocalizationContext';
@@ -58,11 +58,11 @@ const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
   
   // Default accessibility labels
   const defaultLabel = ariaLabel || t('loadingSpinner.loading');
-  const messageId = message ? loading-message- : undefined;
+  const messageId = message ? `loading-message-${size}` : undefined;
   
   return (
     <div 
-      className={classNames(
+      className={clsx(
         'loading-spinner-container',
         className,
         {
@@ -76,9 +76,9 @@ const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
       aria-describedby={ariaDescribedBy || messageId}
     >
       <div 
-        className={classNames(
+        className={clsx(
           'loading-spinner',
-          size-,
+          `size-${size}`,
           {
             'neon-glow': theme.neonEffects
           }
@@ -91,7 +91,7 @@ const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
             className="spinner-dot"
             style={{
               '--dot-index': index,
-              '--dot-delay': ${index * 0.1}s
+              '--dot-delay': `${index * 0.1}s`
             } as React.CSSProperties}
           />
         ))}
@@ -100,9 +100,9 @@ const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
       {(message || size === 'large' || size === 'xlarge') && (
         <div 
           id={messageId}
-          className={classNames(
+          className={clsx(
             'loading-message',
-            size-
+            `size-${size}`
           )}
         >
           {message || t('loadingSpinner.loading')}

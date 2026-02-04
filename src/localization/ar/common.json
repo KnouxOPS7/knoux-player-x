@@ -26,6 +26,9 @@
     "about": "حول",
     "exit": "خروج"
   },
+  "loadingSpinner": {
+    "loading": "جار التحميل..."
+  },
   "player": {
     "play": "تشغيل",
     "pause": "إيقاف مؤقت",

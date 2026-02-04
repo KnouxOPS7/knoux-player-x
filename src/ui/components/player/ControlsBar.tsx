@@ -14,7 +14,11 @@ import { TimeDisplay } from './TimeDisplay';
 
 // Import Types and Hooks
 import { useAppDispatch, useAppSelector } from '../../../state/hooks/index';
-import { togglePlay } from '../../../state/slices/playbackSlice'; 
+import { setPlaybackRate, setVolume, toggleMuted, togglePlay } from '../../../state/slices/playbackSlice'; 
+import { PlayerStatus } from '../../../types/media';
+import SpeedControl from './SpeedControl';
+
+import '../../../styles/components/player/ControlsBar.scss';
 
 interface ControlsBarProps {
     visible: boolean;
@@ -27,6 +31,18 @@ export const ControlsBar: React.FC<ControlsBarProps> = ({ visible }) => {
     const handlePlayToggle = () => {
         // Dispatch action which eventually triggers ipc -> native player
         dispatch(togglePlay());
+    };
+
+    const handleVolumeChange = (volume: number) => {
+        dispatch(setVolume(volume));
+    };
+
+    const handleToggleMute = () => {
+        dispatch(toggleMuted());
+    };
+
+    const handleSpeedChange = (rate: number) => {
+        dispatch(setPlaybackRate(rate));
     };
 
     return (
@@ -45,13 +61,18 @@ export const ControlsBar: React.FC<ControlsBarProps> = ({ visible }) => {
                 {/* Row 2: Actions */}
                 <div className="actions-row">
                     <div className="left-group">
-                        <PlayButton isPlaying={playback.status === 'PLAYING'} onClick={handlePlayToggle} />
-                        <VolumeSlider volume={playback.volume} isMuted={playback.isMuted} />
+                        <PlayButton isPlaying={playback.status === PlayerStatus.PLAYING} onClick={handlePlayToggle} />
+                        <VolumeSlider
+                            volume={playback.volume}
+                            isMuted={playback.isMuted}
+                            onChange={handleVolumeChange}
+                            onToggleMute={handleToggleMute}
+                        />
                         <TimeDisplay current={playback.currentTime} duration={playback.duration} />
                     </div>
                     
                     <div className="right-group">
-                        {/* Add Quality, Subtitle, Fullscreen toggles here */}
+                        <SpeedControl value={playback.playbackRate} onChange={handleSpeedChange} />
                     </div>
                 </div>
 

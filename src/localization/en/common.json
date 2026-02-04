@@ -26,6 +26,9 @@
     "about": "About",
     "exit": "Exit"
   },
+  "loadingSpinner": {
+    "loading": "Loading..."
+  },
   "player": {
     "play": "Play",
     "pause": "Pause",

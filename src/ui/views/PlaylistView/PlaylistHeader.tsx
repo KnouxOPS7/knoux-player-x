@@ -1,18 +1,21 @@
-﻿// PlaylistHeader Component
-// KNOUX Player X - Version 1.0.0
+﻿/**
+ * Project: KNOUX Player X™
+ * Layer: UI -> Playlist Header
+ */
 
-import React from 'react';
-import { motion } from 'framer-motion';
+import React from "react";
 
 interface PlaylistHeaderProps {
-    // Add props here
+    count: number;
 }
 
-const PlaylistHeader: React.FC<PlaylistHeaderProps> = () => {
+const PlaylistHeader: React.FC<PlaylistHeaderProps> = ({ count }) => {
     return (
-        <div className="PlaylistHeader.toLowerCase()-container">
-            <h2>PlaylistHeader</h2>
-            {/* Component content */}
+        <div className="playlist-header">
+            <div>
+                <h2>Playlist</h2>
+                <p>{count} item(s)</p>
+            </div>
         </div>
     );
 };

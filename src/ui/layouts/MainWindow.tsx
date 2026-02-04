@@ -25,8 +25,7 @@
  */
 
 import React, { useState, useEffect, useRef } from 'react';
-import classNames from 'classnames';
-import log from 'electron-log';
+import clsx from 'clsx';
 
 // Context hooks
 import { useTheme } from '../../contexts/ThemeContext';
@@ -75,7 +74,7 @@ const MainWindow: React.FC<MainWindowProps> = ({ children, className }) => {
           setIsMaximized(maximized);
         }
       } catch (error) {
-        log.error('Failed to update window state:', error);
+        console.error('Failed to update window state:', error);
       }
     };
     
@@ -115,7 +114,7 @@ const MainWindow: React.FC<MainWindowProps> = ({ children, className }) => {
         await window.knoxAPI.window.minimize();
       }
     } catch (error) {
-      log.error('Failed to minimize window:', error);
+      console.error('Failed to minimize window:', error);
     }
   };
   
@@ -126,7 +125,7 @@ const MainWindow: React.FC<MainWindowProps> = ({ children, className }) => {
         setIsMaximized(!isMaximized);
       }
     } catch (error) {
-      log.error('Failed to maximize window:', error);
+      console.error('Failed to maximize window:', error);
     }
   };
   
@@ -136,7 +135,7 @@ const MainWindow: React.FC<MainWindowProps> = ({ children, className }) => {
         await window.knoxAPI.window.close();
       }
     } catch (error) {
-      log.error('Failed to close window:', error);
+      console.error('Failed to close window:', error);
     }
   };
   
@@ -152,7 +151,7 @@ const MainWindow: React.FC<MainWindowProps> = ({ children, className }) => {
   return (
     <div 
       ref={mainWindowRef}
-      className={classNames(
+      className={clsx(
         'main-window',
         className,
         {
@@ -191,7 +190,7 @@ const MainWindow: React.FC<MainWindowProps> = ({ children, className }) => {
         
         {/* Primary Content */}
         <main 
-          className={classNames(
+          className={clsx(
             'primary-content',
             {
               'with-sidebar': sidebarVisible,

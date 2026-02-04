@@ -62,7 +62,7 @@ export const analyticsMiddleware: Middleware<{}, RootState> = (api: MiddlewareAP
       payload: (action as any).payload,
       timestamp: Date.now(),
       state: {
-        player: state.player,
+        playback: state.playback,
         settings: state.settings
       }
     };

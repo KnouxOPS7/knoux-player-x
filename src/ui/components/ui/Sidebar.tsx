@@ -26,9 +26,7 @@
  */
 
 import React, { useState, useEffect, useCallback } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import classNames from 'classnames';
-import log from 'electron-log';
+import clsx from 'clsx';
 
 // Icons
 import HomeIcon from '../../assets/icons/home.svg';
@@ -45,7 +43,7 @@ import { useLocalization } from '../../../contexts/LocalizationContext';
 import { useTheme } from '../../../contexts/ThemeContext';
 
 // Redux
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectCurrentView } from '../../../state/selectors/appSelectors';
 import { setCurrentView } from '../../../state/slices/appSlice';
 
@@ -79,16 +77,14 @@ const Sidebar: React.FC<SidebarProps> = ({
   const renderStart = performance.now();
   
   // Hooks
-  const location = useLocation();
-  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const currentView = useSelector(selectCurrentView);
   
   // Context hooks
   const { t } = useLocalization();
   const { theme } = useTheme();
   
   // State management
-  const currentView = useSelector(selectCurrentView);
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
   const [isAnimating, setIsAnimating] = useState(false);
   
@@ -98,37 +94,37 @@ const Sidebar: React.FC<SidebarProps> = ({
       id: 'home',
       label: t('sidebar.home'),
       icon: HomeIcon,
-      path: '/player'
+      path: 'player'
     },
     {
       id: 'library',
       label: t('sidebar.library'),
       icon: LibraryIcon,
-      path: '/library'
+      path: 'library'
     },
     {
       id: 'playlists',
       label: t('sidebar.playlists'),
       icon: PlaylistIcon,
-      path: '/playlists'
+      path: 'playlists'
     },
     {
       id: 'browser',
       label: t('sidebar.browser'),
       icon: BrowserIcon,
-      path: '/browser'
+      path: 'browser'
     },
     {
       id: 'settings',
       label: t('sidebar.settings'),
       icon: SettingsIcon,
-      path: '/settings'
+      path: 'settings'
     },
     {
       id: 'diagnostics',
       label: t('sidebar.diagnostics'),
       icon: DiagnosticsIcon,
-      path: '/diagnostics'
+      path: 'diagnostics'
     }
   ];
   
@@ -139,19 +135,18 @@ const Sidebar: React.FC<SidebarProps> = ({
   });
   
   // Handle navigation
-  const handleNavigation = useCallback((path: string, viewId: string) => {
+  const handleNavigation = useCallback((path: string) => {
     try {
-      navigate(path);
-      dispatch(setCurrentView(viewId));
+      dispatch(setCurrentView(path));
       
       // Track navigation in analytics
       if (window.knoxAPI?.app?.store) {
-        window.knoxAPI.app.store.set('navigation.lastPath', path).catch(log.error);
+        window.knoxAPI.app.store.set('navigation.lastPath', path).catch(console.error);
       }
     } catch (error) {
-      log.error('Navigation failed:', error);
+      console.error('Navigation failed:', error);
     }
-  }, [navigate, dispatch]);
+  }, [dispatch]);
   
   // Handle collapse toggle
   const handleCollapseToggle = useCallback(() => {
@@ -166,19 +161,15 @@ const Sidebar: React.FC<SidebarProps> = ({
   
   // Determine active item
   const getActiveItem = useCallback(() => {
-    const currentItem = navItems.find(item => 
-      location.pathname === item.path || 
-      location.pathname.startsWith(item.path + '/')
-    );
-    
+    const currentItem = navItems.find(item => item.path === currentView);
     return currentItem?.id || 'home';
-  }, [location.pathname, navItems]);
+  }, [currentView, navItems]);
   
   const activeItem = getActiveItem();
   
   return (
     <nav 
-      className={classNames(
+      className={clsx(
         'sidebar',
         className,
         {
@@ -202,7 +193,7 @@ const Sidebar: React.FC<SidebarProps> = ({
           return (
             <li 
               key={item.id}
-              className={classNames(
+              className={clsx(
                 'nav-item',
                 {
                   'active': isActive,
@@ -214,7 +205,7 @@ const Sidebar: React.FC<SidebarProps> = ({
             >
               <button
                 className="nav-link"
-                onClick={() => handleNavigation(item.path, item.id)}
+                onClick={() => handleNavigation(item.path)}
                 onMouseEnter={() => setHoveredItem(item.id)}
                 onMouseLeave={() => setHoveredItem(null)}
                 aria-current={isActive ? 'page' : undefined}
@@ -223,7 +214,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                 role="menuitem"
               >
                 <IconComponent 
-                  className={classNames(
+                  className={clsx(
                     'nav-icon',
                     {
                       'active': isActive,

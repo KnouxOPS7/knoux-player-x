@@ -10,17 +10,27 @@ import { persistenceMiddleware, loadPersistedState } from "../middleware/persist
 
 // Import Slices (These files are assumed to exist or will be generated next step)
 // NOTE: For now, we import empty reducers placeholder logic until Slices script runs.
+import appReducer from "../slices/appSlice";
 import playbackReducer from "../slices/playbackSlice"; // Future generation
 import playlistReducer from "../slices/playlistSlice"; // Future generation
 import settingsReducer from "../slices/settingsSlice"; // Future generation
+import themeReducer from "../slices/themeSlice";
+import localizationReducer from "../slices/localizationSlice";
+import networkReducer from "../slices/networkSlice";
+import updateReducer from "../slices/updateSlice";
 
 const preloadedState = loadPersistedState();
 
 export const store = configureStore({
     reducer: {
+        app: appReducer,
         playback: playbackReducer,
         playlist: playlistReducer,
-        settings: settingsReducer
+        settings: settingsReducer,
+        theme: themeReducer,
+        localization: localizationReducer,
+        network: networkReducer,
+        update: updateReducer
     },
     middleware: (getDefaultMiddleware) => 
         getDefaultMiddleware({

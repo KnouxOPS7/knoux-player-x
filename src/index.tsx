@@ -27,11 +27,8 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { PersistGate } from 'redux-persist/integration/react';
-import { ErrorBoundary } from 'react-error-boundary';
-import log from 'electron-log';
+import ErrorBoundary from './ui/components/shared/ErrorBoundary';
 
 // Global styles and themes
 import './styles/global.scss';
@@ -40,7 +37,7 @@ import './styles/animations.scss';
 
 // Core application components
 import App from './App';
-import { store, persistor } from './state/store';
+import { store } from './state/store';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { LocalizationProvider } from './contexts/LocalizationContext';
 
@@ -56,8 +53,7 @@ import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
 // Validate secure context
 if (typeof window.knoxAPI === 'undefined') {
-  log.error('Secure context not available - knoxAPI not exposed');
-  throw new Error('Application cannot run without secure context');
+  console.warn('Secure context not available - knoxAPI not exposed');
 }
 
 // Performance monitoring setup
@@ -67,7 +63,7 @@ if ('performance' in window) {
 
 // Error boundary error handler
 const handleError = (error: Error, info: { componentStack: string }) => {
-  log.error('React error boundary caught error:', {
+  console.error('React error boundary caught error:', {
     error: error.message,
     stack: error.stack,
     componentStack: info.componentStack
@@ -80,7 +76,7 @@ const handleError = (error: Error, info: { componentStack: string }) => {
       stack: error.stack,
       componentStack: info.componentStack,
       timestamp: new Date().toISOString()
-    }).catch(log.error);
+    }).catch(console.error);
   }
 };
 
@@ -96,26 +92,16 @@ root.render(
   <React.StrictMode>
     <ErrorBoundary
       FallbackComponent={ErrorFallback}
-      onError={handleError}
-      onReset={() => {
-        // Reset application state
-        window.location.reload();
-      }}
+      onError={(error) => handleError(error, { componentStack: '' })}
+      onReset={() => window.location.reload()}
     >
       <GlobalErrorHandler>
         <Provider store={store}>
-          <PersistGate 
-            loading={<div className="loading-container"><div className="loading-spinner"></div></div>} 
-            persistor={persistor}
-          >
-            <ThemeProvider>
-              <LocalizationProvider>
-                <BrowserRouter>
-                  <App />
-                </BrowserRouter>
-              </LocalizationProvider>
-            </ThemeProvider>
-          </PersistGate>
+          <ThemeProvider>
+            <LocalizationProvider>
+              <App />
+            </LocalizationProvider>
+          </ThemeProvider>
         </Provider>
       </GlobalErrorHandler>
     </ErrorBoundary>
@@ -125,27 +111,27 @@ root.render(
 // Register service worker
 serviceWorkerRegistration.register({
   onUpdate: (registration) => {
-    log.info('Service worker update available');
+    console.info('Service worker update available');
     // Notify user of update availability
     if (window.knoxAPI?.app) {
-      window.knoxAPI.app.store.set('updateAvailable', true).catch(log.error);
+      window.knoxAPI.app.store.set('updateAvailable', true).catch(console.error);
     }
   },
   onSuccess: (registration) => {
-    log.info('Service worker registered successfully');
+    console.info('Service worker registered successfully');
   }
 });
 
 // Report web vitals for performance monitoring
 reportWebVitals((metric) => {
-  log.info('Web vital metric:', metric);
+  console.info('Web vital metric:', metric);
   
   // Send metrics to main process for aggregation
   if (window.knoxAPI?.app?.store) {
-    window.knoxAPI.app.store.set(\metrics.\\, {
+    window.knoxAPI.app.store.set(`metrics.${metric.name}`, {
       value: metric.value,
       timestamp: new Date().toISOString()
-    }).catch(log.error);
+    }).catch(console.error);
   }
 });
 
@@ -157,7 +143,7 @@ if ('performance' in window) {
 
 // Global error handlers
 window.addEventListener('error', (event) => {
-  log.error('Global error handler:', {
+  console.error('Global error handler:', {
     message: event.error?.message,
     filename: event.filename,
     lineno: event.lineno,
@@ -167,14 +153,14 @@ window.addEventListener('error', (event) => {
 });
 
 window.addEventListener('unhandledrejection', (event) => {
-  log.error('Unhandled promise rejection:', event.reason);
+  console.error('Unhandled promise rejection:', event.reason);
   event.preventDefault();
 });
 
 // Cleanup on unload
 window.addEventListener('beforeunload', () => {
   // Flush any pending logs
-  log.transports.file.stream?.end();
+  // Flush any pending logs
   
   // Save current state
   if (window.knoxAPI?.app?.store) {
